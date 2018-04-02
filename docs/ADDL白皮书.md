@@ -53,7 +53,7 @@
 
 在数据矩阵中，特定的体素可以被索引为[Xvox，Yvox，Zvox]，其中这三个坐标指定其在矩阵中的每个维度上的位置。关于如何存储这些数据的细节（例如，第一X值是指最左边还是最右边的体素）通常存储在图像头部或者有关图像元数据中。
 
-![MRI Dimensions and Coordinate Mapping](sc/sc_wp_coordinateen_1.png)
+![MRI Dimensions and Coordinate Mapping](images/sc_wp_coordinate1_en.png)
 
 #### 原生空间与标准空间
 坐标系统提供了大脑结构和图像坐标之间的联系。我们称从MRI扫描仪获取的图像中的原始坐标系为图像原生空间。尽管原生空间允许我们将图像坐标与物理结构相关联，但不同个体（或同一个人的不同扫描）的大脑不一定在原生空间中相同。不同的人拥有不同大小的大脑，即使同一人被多次扫描，大脑也会出现在图像的不同位置，具体取决于头部在扫描仪中的位置。因为神经影像学中的许多研究问题都要求我们将个人数据结合起来，所以我们需要一个共同的空间，让不同的个体可以对齐。这种共同空间的第一动力来自神经外科医生，他们希望有一个标准化的空间来进行立体定向神经外科手术。现在将这些空间统称为标准空间或立体空间。其中最着名的是Jean Talairach开发的方法（Talairach，1967）。最近基于大量核磁共振图像在蒙特利尔神经病学研究所开发的立体坐标空间已经成为该领域的标准。
@@ -215,7 +215,7 @@ Atropos在每次迭代时估计混合参数，类似于Ashburner和Friston（200
 ![LATEX:\gamma_k\leftarrow\frac{1}{N}\sum_{i=1}^Np_k(\ell_k|y_i)](http://latex.codecogs.com/gif.latex?%5Cgamma_k%5Cleftarrow%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29)<br><br>
 通过计算更新模型参数，对每个标记，均值<br><br>
 ![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^Ny_ip_k(\ell_k|y_i)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENy_ip_k%28%5Cell_k%7Cy_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br><br>
-变量范围<<br><br>
+变量范围<br><br>
 ![LATEX:\delta_k^2\leftarrow\frac{\sum_{i=1}^N(y_i-\mu_k)^Tp_k(\ell_k|y_i)(y_i-\mu_k)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cdelta_k%5E2%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%28y_i-%5Cmu_k%29%5ETp_k%28%5Cell_k%7Cy_i%29%28y_i-%5Cmu_k%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br><br>
 在多元数据的情况下，后两个数量分别被修改如下<br><br>
 ![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^N\mathbf y_ip_k(\ell_k|\mathbf y_i)}{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%5Cmathbf%20y_ip_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)<br><br>
