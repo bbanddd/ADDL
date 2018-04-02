@@ -1,0 +1,272 @@
+# Introduction
+
+## Abbreviation
+* *CNS* central nervous system
+* *GM* grey matter or gray matter
+* *WM* white matter
+* *CSF* cerebrospinal fluid
+* *MRI* Magnetic resonance imaging
+* *VBM* Voxel-Based Morphometry
+* *EM* Expectation-Maximization
+
+# 基础
+
+## 脑解剖学
+中枢神经系统有两种组织：灰质和白质，灰质，在活脑中有粉红灰色，包含神经元的细胞体，树突和轴突终端，所以它是所有突触的地方。白质由连接灰质不同部分的轴突组成。
+
+![Figure of Basic Brain Anatomy](sc/sc_wp_anatomy_en_1.png)
+
+***灰质***<br>
+灰质是中枢神经系统的主要成分，由神经元细胞体，神经纤维（树突和髓鞘以及无髓鞘轴突），神经胶质细胞（星形胶质细胞和少突胶质细胞），突触和毛细血管组成。灰质与白质有区别，因为它含有许多细胞体和相对较少的髓鞘化轴突，而白质含有相对较少的细胞体，并且主要由远距离有髓鞘的轴突束组成。色差主要来自髓磷脂的白度。在活体组织中，灰质实际上具有浅灰色，带有淡黄色或粉红色，来自毛细血管和神经元细胞体。
+
+***白质***<br>
+白质是指中枢神经系统的区域，主要由髓鞘形成的轴突组成，也称为大脑。长期以来被认为是被动组织，白质会影响学习和大脑功能，调节动作电位的分布，作为中继协调不同大脑区域之间的通信。
+
+白色物质因其髓磷脂含量相对较轻的外观而得名。然而，新鲜切割的脑组织肉眼看起来呈粉红色，因为髓磷脂主要由具有毛细血管的脂质组织组成。在制备的样品中它的白色是由于其通常在甲醛中保存。
+
+***脑脊髓液***<br>
+脑脊髓液是在大脑和脊髓中发现的清澈无色的体液。它产生于脑室脉络丛中，并吸收在蛛网膜颗粒中。任何时候都有大约125mL脑脊液，每天产生大约500mL。脑脊液充当大脑的缓冲或缓冲区，为头骨内的大脑提供基本的机械和免疫保护。脑脊液也在脑血流的脑自动调节中起重要作用。
+
+## 结构核磁共振影像
+结构MRI反映大脑解剖结构，采集时间取决于信噪比和分辨率（典型3-15分钟），有很多不同的好的序列获取图像。
+
+### 测量
+三个主要测量量包含水和脂肪密度（质子密度），T1加权弛豫时间和T2加权弛豫时间。弛豫时间取决于许多事情，主要对微环境和组织类型敏感。
+
+### 分析
+结构核磁共振影像的分析侧重于量化组织体积和结构形状和大小。它可以识别大脑组织类型，亚皮质结构和形状，皮质表面和厚度以及局部灰质组织改变。结构核磁共振影像分析流程包含脑部提取，组织分割和注册。
+
+### 局限
+结构核磁共振影像不能直接区分组织类型（灰质、白质、脑脊液），它不是定量的。灰质和白质的值在T1加权和T2加权之间不同。皮层下区域的差异很小。单个采集序列不能显示全部病理。特别是核磁共振影像的伪影和噪声是分析的主要限制。
+
+核磁共振影像始终存在采集时间，分辨率和噪声（SNR）之间的折衷。为了分析，对比度噪声比（CNR）通常更重要，对比度也取决于核磁共振序列。
+
+### 采集技巧
+对于信噪比、时间和分辨率的折衷，T1加权图像往往是最好的选择，1mm体素是典型的。 有许多序列名称、类型可以提供T1加权图像，而且大部分都是好的，请在扫描仪上使用本地的优化的序列。如果受试者移动很多，则离线平均几次较短的采集可能会更好。亚皮质对比可以通过不同的序列或参数选择来增强。打开一些脂肪抑制有助于脑部提取。一般来说，各向同性体素更适合分析。不要在扫描仪上进行上采样。
+
+## 大脑注册的理论基础
+
+### 空间
+
+#### 坐标系统
+由于MRI图像与物理对象相关，因此我们需要一些方法将图像中的数据点与物理对象中的空间分配相关联。我们使用坐标系进行此操作，这是一种指定图像空间特征的方式。单个大脑图像的数据矩阵通常是三维的，使得矩阵中的每个维度对应一个空间维度。按照惯例，这些维度（或轴）称为X，Y和Z。在用于神经影像学数据的标准空间中，X代表左右方向，Y代表前后方向，Z代表上下方向。
+
+在数据矩阵中，特定的体素可以被索引为[Xvox，Yvox，Zvox]，其中这三个坐标指定其在矩阵中的每个维度上的位置。关于如何存储这些数据的细节（例如，第一X值是指最左边还是最右边的体素）通常存储在图像头部或者有关图像元数据中。
+
+![MRI Dimensions and Coordinate Mapping](sc/sc_wp_coordinateen_1.png)
+
+#### 原生空间与标准空间
+坐标系统提供了大脑结构和图像坐标之间的联系。我们称从MRI扫描仪获取的图像中的原始坐标系为图像原生空间。尽管原生空间允许我们将图像坐标与物理结构相关联，但不同个体（或同一个人的不同扫描）的大脑不一定在原生空间中相同。不同的人拥有不同大小的大脑，即使同一人被多次扫描，大脑也会出现在图像的不同位置，具体取决于头部在扫描仪中的位置。因为神经影像学中的许多研究问题都要求我们将个人数据结合起来，所以我们需要一个共同的空间，让不同的个体可以对齐。这种共同空间的第一动力来自神经外科医生，他们希望有一个标准化的空间来进行立体定向神经外科手术。现在将这些空间统称为标准空间或立体空间。其中最着名的是Jean Talairach开发的方法（Talairach，1967）。最近基于大量核磁共振图像在蒙特利尔神经病学研究所开发的立体坐标空间已经成为该领域的标准。
+
+### 空间变换
+核磁共振影像分析的几个方面需要以某种方式对图像进行空间变换，例如，为了在个体内部（或许为了校正头部运动）或在个体之间（为了进行组分析）对准图像。有无数种方式来转换图像。一个简单的变换（有少量参数）可能会移动空间中的结构而不改变其形状，而更复杂的变换可能会将两个复杂结构的形状相互匹配。一般来说，我们将重点关注与体素数量相关的参数相对简单的方法。我们也将我们的注意力集中在自动化方法上，不需要任何人工描绘解剖标志，因为这些是目前最常见的。在本节中，我们只讨论基于卷的转换，其中涉及对三维数据卷的更改。
+
+将一个图像与另一个图像对齐需要两个步骤。首先，我们必须估算导致最佳对齐的转换参数。这就要求我们有一个转换模型，它指定了图像可以被改变的方式以便重新对齐它。这种模型中的每个参数都描述了对图像所做的更改。一个非常简单的模型可能只有几个参数；这样的模型只能做出大改变，而不能对准两个图像的细节。一个复杂的模型可能有更多的参数，并且能够更好地对齐图像，尤其是更精细的细节。我们还需要一种方法来确定两幅图像之间的错位情况，我们称之为成本函数。正是这个成本函数通过寻找最小的错位，以找到最佳对齐两个图像的参数。
+
+一旦我们确定转换模型的参数，我们就必须对原始图像进行重新采样，以创建重新对齐的版本。每个体素的原始坐标被转换到新的空间，并且基于这些转换的坐标创建新图像。由于变换的坐标一般不会完全落在原始图像的坐标之上，因此有必要计算这些中间点处的强度值，这就是所谓的插值。插值方法从简单（就近）到复杂整个图像的复数加权平均值。
+
+#### 变换模型
+***仿射变换***<br>
+只使用线性操作的最简单的转换模型，也称为仿射变换。仿射变换的一个特征是在变换之前落在一条线上的任何一组点将继续落在变换之后的一条线上。因此，使用仿射变换不可能对对象的形状（如弯曲）进行根本改变。仿射变换涉及线性变换的组合，沿轴平移（移位），围绕轴旋转，沿轴缩放（拉伸），和沿轴剪切。
+
+对于三维图像，可以针对每个维度执行这些操作中的每个操作，并且每个维度的操作由单个参数表示。因此，通过12个参数来描述图像沿三维中的每个轴平移，旋转，倾斜和拉伸的全仿射变换。在某些情况下，您可能只想使用可能的线性变换的子集来变换图像，这与线性变换的参数少于12的仿射变换相对应。例如，在运动校正中，我们假设头部随时间移动而不改变其大小或形状。我们可以使用只有六个参数（三个平移和三个旋转）的仿射变换来重新对齐这些图像，这也称为刚体变换，因为它不会更改图像中对象的大小或形状。
+
+***分段线性变换***<br>
+仿射变换的一个扩展是将整个图像分成几个部分，并允许在每个部分中进行不同的线性变换。这被称为分段线性变换。分段线性变换被用于由Talairach开发的大脑图像空间标准化的早期方法之一。
+
+***非线性变换***<br>
+非线性变换为图像配准提供了比仿射变换更大的灵活性，使得不同的图像可以更准确地进行匹配。有非常广泛的非线性变换技术可供选择，我们只能讲些皮毛，了解更多细节，请参阅Ashburner＆Friston（2007）和Holden（2008）。仿射变换仅限于体素坐标上的线性运算，非线性变换允许任何类型的操作。非线性变换通常用基函数来描述，这些函数是用来变换原始坐标的函数。前面描述的仿射变换是基函数的一个例子。但是，基函数的扩展也允许我们以更高维的形式重新表示坐标，以允许更复杂的转换。
+
+在MRI数据分析中经常遇到的另一个非线性基函数集是离散余弦变换（DCT）基础集，历史上用于SPM（Ashburner＆Friston，1999），尽管最近已被样条基函数取代。该基准集包括从低频开始（在图像上变化非常缓慢）和频率增加的余弦函数。它与傅里叶变换密切相关。每个余弦函数都有一个与之相关的参数；较低频率的分量负责更平缓的变化，而较高频率的分量负责更多的局部变化。
+
+对于所有的非线性变换，参数的数量越多，变换图像的自由度就越大。特别是，高维变换允许更多的局部变换；而线性变换必然以相同的方式作用整个图像，非线性变换可以比线性变换更加集中地改变图像的某些部分。
+
+#### 成本函数
+***最小二乘***<br>
+最小二乘成本函数可能是最为熟悉的，它是大多数标准统计方法的基础。该成本函数测量每个图像中体素强度之间的平均差异。<br>
+![Equation_1_C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2)<br>
+其中Av和Bv分别表示第v个体素图像A和B的强度。因为它测量每个体素值的相似性，所以最小二乘成本函数仅适用于模态内注册。即使在模态中，如果两幅图像具有不同的强度分布（例如，一个比另一个更亮或者具有更宽范围的强度），则其性能可能会很差。一种方法是AIR软件包中的一个选项，首先在使用最小二乘成本函数之前对光强分布进行缩放，以使它们落在图像的相同范围内。
+
+***相关归一化***<br>
+归一化相关测量两幅图像中体素强度之间的线性关系。<br>
+![Equaltion_1_C=\frac{\sum_{v=1}^nA_vB_v}{\sqrt{\sum_{v=1}^nA_v^2}\sqrt{\sum_{v=1}^nB_v^2}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Cfrac%7B%5Csum_%7Bv%3D1%7D%5EnA_vB_v%7D%7B%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnA_v%5E2%7D%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnB_v%5E2%7D%7D)<br>
+这一方法仅适用于模式内注册。在比较运动校正的许多不同成本函数时（Jenkinson等，2002）归一化相关结果比其他几个成本函数包括最小二乘法更准确地进行配准。这是FSL软件包中用于运动修正的默认成本函数。
+
+***互信息***<br>
+尽管前面描述的用于模态内注册的成本函数在经典统计中有其基础，互信息成本函数（Pluim等，2003）可用于模态间注册或模式内注册，源于信息论中的熵。熵指的是信号中存在的不确定性或随机性的数量。<br>
+![H=\sum_{i=1}^Np_i\log(\frac 1 p_i)=-\sum_{i=1}^Np_i\log(p_i)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20H%3D%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28%5Cfrac%201%20p_i%29%3D-%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28p_i%29)<br>
+其中pi是变量的每个可能值xi的概率，对于连续变量，这些值被分组为N个组的统计直方。熵测量信号中变量的每个不同可能值的发生程度。如果只有一个信号值可能出现，则熵被最小化。如果每个不同的值经常出现，则熵被最大化。以这种方式，它与信号的变化密切相关，并且也与人们可以预测信号的下一个值的不确定性有关。通过检查图像的联合直方图可以将熵扩展到多个图像，这些图像绘制了图像中所有体素的所有可能值的强度​​组合的频率。如果两幅图像相同，则联合直方图沿对角线方向具有值，因为这些值在每幅图像中的体素将是相同的，而图像之间的差异导致整个直方图上的值的更大离差；注意到对于这种情况下的情况，相互作用将是比互信息（MI）更合适的成本函数测量。对于不同形式的图像，互信息更合适，更大的配准不准会导致联合直方图中的色散更大。然后可以根据这个联合直方图计算两幅图像A和B的联合熵<br>
+![H(A,B)=\sum_{i,j}p_{i,j}\log(\frac{1}{p_{i,j}})](http://latex.codecogs.com/gif.latex?%5Cbg_white%20H%28A%2CB%29%3D%5Csum_%7Bi%2Cj%7Dp_%7Bi%2Cj%7D%5Clog%28%5Cfrac%7B1%7D%7Bp_%7Bi%2Cj%7D%7D%29)<br>
+其中i指示A和j的B值的指数值。当图像B的值完全可以通过图像A中相同体素的值预测时，该度量最低。
+
+互信息是个体图像的总体熵与联合熵之间的差异：<br>
+![MI=H(A)+H(B)-H(A,B)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20MI%3DH%28A%29&plus;H%28B%29-H%28A%2CB%29)<br>
+其中H（A）和H（B）分别为每幅图像中的值分别计算出的熵（称为边缘熵），H（A，B）是联合熵。 当联合熵最小时，互信息最大，当一幅图像的值从另一幅图像最大可预测时发生。因此，互信息可以用作两幅图像之间的相似性度量。
+
+互信息的一个潜在问题是，在某些情况下，即使图像之间的重叠减少，互信息也会增加。出于这个原因，已经提出了互信息系数的标准化（Studholme等，1999）：<br>
+![MI=\frac{H(A)+H(B)}{H(A,B)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20MI%3D%5Cfrac%7BH%28A%29&plus;H%28B%29%7D%7BH%28A%2CB%29%7D)
+
+所有主要软件包（FSL，SPM和AFNI）都提供图像注册的常规和标准化交互信息成本函数。
+
+***相关比例***<br>
+相关比率（Roche等，1998）衡量一种测度方差是如何被另一种测度中的方差所捕获的。两个图像A和B的相关比被定义为<br>
+![C=\frac{1}{Var(A)}\sum_{k=1}^N\frac{n_k}{N}Var(A_k)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Cfrac%7B1%7D%7BVar%28A%29%7D%5Csum_%7Bk%3D1%7D%5EN%5Cfrac%7Bn_k%7D%7BN%7DVar%28A_k%29)<br>
+其中k是对B的每个唯一值的索引，并且N是B的唯一值的数目。如果A和B是相同的，那么在所有具有某个特定B值的体素中，A的值不会有变化 ，并且相关比率变为零。这种测量方法类似于在AIR软件包（Woods等，1993）中首次实施用于PET-MRI配准的伍兹标准，虽然它在某些情况下表现出不同（Jenkinson和Smith，2001）。它适用于模态内和模态间注册，并且是FSL软件包中模态成本函数之间的默认值。
+
+#### 插值
+***最近邻插值***<br>
+在最近邻插值中，新体素的值被原始图像中最近的体素值替换。这种内插形式很少使用，因为它有许多问题。首先，它可能会导致看起来“块状”的复制图像，并且通常会有分辨率的损失，同一图像上插值多次执行时，这一点尤其明显。其次，当使用最近邻插值时，变换参数的不连续变化会导致成本函数值的不连续变化，这使其不适用于优化方法（通常假设成本函数是连续的）。
+
+最邻近内插是优选的一种情况是对体素值代表标识而不是物理强度的图像进行变换。例如，包含在一些软件包中的解剖学图谱被存储为具有与图谱中每个结构对应的特定但任意值的图像（例如，海马中的体素具有12标记值，并且杏仁核中的具有20标记值）。使用在这些数字之间平均的插值方法会给出无意义的结果，因此将使用最近邻插值来确保变换图像中的标签值保留与原始图像中的标签值相同的精确值。
+
+***线性插值***<br>
+这种方法在三维应用时通常称为三线性插值，包括对原始图像中每个最近点的值进行加权平均。与高阶插值方法相比，此方法具有相对较快的优点，因为它只考虑紧邻新位置的那些点。但是，它往往比高阶插值方法（如插值插值）更容易造成图像模糊。
+
+***高阶插值***<br>
+有许多内插方法，它们将信息集中在比最近邻（仅使用单个最近的体素）和线性内插（其在三维中对八个最近的体素进行整合）更广泛的体素集上。最常见的高阶插值方法是sinc插值，它使用sinc函数[sinc（x）= sin（x）/ x]。原则上，将sinc函数延伸到无穷大使插值形式上使用来自图像中每个体素的信息，但是这在计算上会非常昂贵。通过使用窗口化sinc函数来使sinc插值更加可行，其中函数只扩展距被插值点有限的距离，而不是包含整个图像。有很多不同形式的窗口可以应用，常见的选项包括汉明和矩形窗户。 有论文指出（Ostuni等，1997），尽可能选择使用半径（或半长）至少为4个体素的窗口，汉明窗口似乎有相对于矩形窗口更少的插值误差。
+
+高阶插值的另一种形式使用基函数，正如空间转换模型。基函数（如B样条）提供了一种更通用的插值方法，它可以包含最近邻点和线性插值以及更高阶的非线性插值。
+
+## 图谱与模板
+图谱提供了坐标空间中解剖特征位置的指南。模板是图谱中的图像，也是图谱中各个图像对齐的目标。模板可以包含来自单个个体的图像或者多个个体的平均图像。尽管图谱对活动定位和结果解读非常有用，但模板在MRI数据的空间标准化中起着核心作用。
+
+#### Talairach图谱
+Talairach图谱是最著名的大脑图谱，是由Talairach（1967）创建，后来由Talairach和Tournoux（1988）更新。Talairach图谱提供了一组矢状，冠状和轴向切片，标记有解剖结构和Brodmann区域。 Talairach还提供了一个流程，使用解剖标志对任何大脑进行归一化处理。一旦根据Talairach的流程对数据进行了归一化处理，图谱会给出一种看似简单的方式，来确定任何特定位置的解剖位置。
+
+虽然它在神经影像学的发展中发挥了重要作用，但Talairach图谱和与之相关的坐标空间是有问题的（Devlin＆Poldrack，2007）。关于空间标准化，一个主要的问题是没有可用于基于图谱的个体的MRI扫描，因此不能创建准确的MRI模板。这意味着对模板的归一化需要识别解剖标志，然后用这些标志来指导标准化；这种基于解剖标识的规范化通常会被以支持自动注册的模板拒绝。
+
+#### MNI模板
+用于空间正常化的最常用模板是在蒙特利尔神经学研究所开发的，被称为MNI模板的模板。这些模板的开发提供了一个基于MRI的模板，可以实现自动注册而不是基于解剖标注的注册。第一个被广泛使用的模板，被称为MNI305，首先通过使用基于解剖标准的配准将一组305幅图像与Talairach图谱对齐，计算这些图像的平均值，然后使用九参数仿射配准将每个图像重新对准该平均图像（Evans等，1993）。随后，另一个ICBM-152模板，通过将一组更高分辨率的图像注册到MNI305模板产生。每个主要软件包都包含ICBM-152模板的版本。需要注意的是，MNI305和ICBM-152模板之间存在细微的差异，因此具体取决于使用哪种模板所得图像的大小和位置可能不同（Lancaster et al。，2007）
+
+## 大脑分割的理论基础
+贝叶斯定理提供一种强有力的机制来进行归纳推理，通过似然和先验概率给出条件概率的定义。基于贝叶斯理论的大脑图像分割，以用户选择的观察模型来定义似然和一个或多个先验概率项。似然项和先验概率的乘积与后验概率成正比。似然项可由参数（例如，高斯模型）定义或非参数（例如，样本直方图的Parzen窗）来定义。先验概率在文献中通常也被称为基于马尔科夫场或基于模板。本文中的图像分割方法相当于求解体素标记的最大后验概率。
+
+通用的贝叶斯框架（Sanjay-Gopal和Hebert，1998）关注贝叶斯公式的似然模型和先验模型，![LATEX:\underset{\mathrm{Postpior}}{\underbrace{p(\mathbf x|\mathbf y)}}={\underset{\mathrm{Likelihood}}{\underbrace{p(\mathbf y|\mathbf x)}}}\;{\underset{\mathrm{Prior}}{\underbrace{p(\mathbf x)}}}\;{\underset{\mathrm{Norm}}{\underbrace{\frac{1}{p(\mathbf y)}}}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cunderset%7B%5Cmathrm%7BPostpior%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20x%7C%5Cmathbf%20y%29%7D%7D%3D%7B%5Cunderset%7B%5Cmathrm%7BLikelihood%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20y%7C%5Cmathbf%20x%29%7D%7D%7D%5C%3B%7B%5Cunderset%7B%5Cmathrm%7BPrior%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20x%29%7D%7D%7D%5C%3B%7B%5Cunderset%7B%5Cmathrm%7BNorm%7D%7D%7B%5Cunderbrace%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%20y%29%7D%7D%7D%7D)，其中归一化项是不影响优化的常数。 给定似然模型和先验概率模型时，贝叶斯分割解决方案就是标记的最大后验概率（即![LATEX:\widehat{\mathbf x}=\underset{\mathbf x}{\mathrm{argmax}}\left\{p(\mathbf y|\mathbf x)p(\mathbf x)\right\}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cwidehat%7B%5Cmathbf%20x%7D%3D%5Cunderset%7B%5Cmathbf%20x%7D%7B%5Cmathrm%7Bargmax%7D%7D%5Cleft%5C%7Bp%28%5Cmathbf%20y%7C%5Cmathbf%20x%29p%28%5Cmathbf%20x%29%5Cright%5C%7D)）。最大期望估计框架（Dempster 等，1977）找到解决这个问题的解决方案。
+
+接下来介绍贝叶斯分割中三个基本组成部分，似然或观测模型，基于广义MRF或模板的先验概率，以及求最大后验概率的优化框架。这些部分在大多数基于最大期望的分割算法中很常见。
+
+### 似然或观测模型
+
+#### 参数和非参数模型
+每个标记对应一个概率模型描述像素位置在体素方面的变化概率。体素概率有参数和非参数的定义。
+
+在参数情况下，出于简单性和良好的性能，体素概率通常被定义为正态分布。其中![LATEX:p_k(y_i|\ell_k)=G(\mu_k,\sigma_k)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p_k%28y_i%7C%5Cell_k%29%3DG%28%5Cmu_k%2C%5Csigma_k%29)，k是标记序号。当观测量是向量时，我们用马氏距离代替欧几里德距离，并通过平均向量和协方差矩阵定义多元高斯参数。
+
+非参数变体的一种常用技术是使用采样数据统计直方图的Parzen窗来定义体素概率。![LATEX:p_k(y_i|\ell_k)=\frac{1}{N_B}\sum_{j=1}^{N_B}G(\mu_j,\delta_j)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p_k%28y_i%7C%5Cell_k%29%3D%5Cfrac%7B1%7D%7BN_B%7D%5Csum_%7Bj%3D1%7D%5E%7BN_B%7DG%28%5Cmu_j%2C%5Cdelta_j%29)，其中![LATEX:N_B](http://latex.codecogs.com/gif.latex?%5Cbg_white%20N_B)是观察数据统计直方图分段数量。对于观测分量数大于一的多维数据，为每个分量构造一个Parzen窗函数，似然函数由各分量的联合概率确定，即乘积。
+
+#### 有限混合模型
+有限混合模型的分割似然估计是最常用的模型，因为它具有简单的数学形式和理想大脑MRI的分段不变特性。有限混合模型通过假设体素之间独立性来计算与整个观测集相关的概率。体素之间的空间关联由先验概率建模。![LATEX:p(\mathbf y|\mathbf x)=\prod_{i=1}^N\left(\sum_{k=1}^K\gamma_kp_k(y_i|\ell_k)\right)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p%28%5Cmathbf%20y%7C%5Cmathbf%20x%29%3D%5Cprod_%7Bi%3D1%7D%5EN%5Cleft%28%5Csum_%7Bk%3D1%7D%5EK%5Cgamma_kp_k%28y_i%7C%5Cell_k%29%5Cright%29)，其中![LATEX:\gamma](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma)是混合参数，K是标记种类数量，N是观测数据数量。
+
+在ITK软件包中的Atropos工具的分割似然模型就是有限混合模型。
+
+#### 隐式马尔可夫随机场模型
+一种新型的隐马尔可夫随机场（HMRF）模型，它是由马尔科夫场产生的随机过程，其状态序列不能直接观测到，但可以通过观测间接估计。在数学上，可以证明FMM是HMRF模型的退化版本。HMRF模型的优势来源于空间信息包含相邻站点的相互影响。
+
+FAST软件包使用马尔科夫随机场做为分割似然模型。
+
+### 先验概率模型
+
+#### 生成马尔科夫先验概率
+我们会觉着较好的标记会考虑体素邻域的各向一致性，将空间关联性引入分割。这个主意可以通过马尔科夫理论对体素邻域的空间关联建模（Li 2001）。
+
+基于MRF理论和Hanmmersley-Clifford定理，先验概率的建模是![p(\mathbf x)=\underset{\mathrm{Partition}}{\underbrace Z}^{-1}\exp(-\underset{\mathrm{Energy}}{\underbrace U}(\mathbf x))](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p%28%5Cmathbf%20x%29%3D%5Cunderset%7B%5Cmathrm%7BPartition%7D%7D%7B%5Cunderbrace%20Z%7D%5E%7B-1%7D%5Cexp%28-%5Cunderset%7B%5Cmathrm%7BEnergy%7D%7D%7B%5Cunderbrace%20U%7D%28%5Cmathbf%20x%29%29)，其中Partition函数是归一化因子；Energy函数仅由整个图像上的相邻站点之间的成对相互作用的总和组成，![LATEX:\underset{\mathrm{Energy}}{\underbrace{\mathbf{U}(\mathbf x)}}={\underset{\mathrm{Granularity}}{\underbrace \beta}}{\underset{\mathrm{Voxels}}{\underbrace{\sum{_{i=1}^N}}}}{\underset{\mathrm{Neighborhood}}{\underbrace{\sum_{j\in{\mathfrak N}}}}}\underset{\mathrm{Potential}}{\underbrace{V_{i,j}(x_i,x_j)}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cunderset%7B%5Cmathrm%7BEnergy%7D%7D%7B%5Cunderbrace%7B%5Cmathbf%7BU%7D%28%5Cmathbf%20x%29%7D%7D%3D%7B%5Cunderset%7B%5Cmathrm%7BGranularity%7D%7D%7B%5Cunderbrace%20%5Cbeta%7D%7D%7B%5Cunderset%7B%5Cmathrm%7BVoxels%7D%7D%7B%5Cunderbrace%7B%5Csum%7B_%7Bi%3D1%7D%5EN%7D%7D%7D%7D%7B%5Cunderset%7B%5Cmathrm%7BNeighborhood%7D%7D%7B%5Cunderbrace%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%20N%7D%7D%7D%7D%7D%5Cunderset%7B%5Cmathrm%7BPotential%7D%7D%7B%5Cunderbrace%7BV_%7Bi%2Cj%7D%28x_i%2Cx_j%29%7D%7D)，其中Granularity项是分割解决方案MRF先验的权重。 Potential函数通常Kronecker差定义，基于经典的Ising（也被称为Potts）模型（Besag，1974），![V_{i,j}=\delta_{i,j}=\bigl(\begin{smallmatrix} 0  &if x_i=x_j \\ 1  &otherwise \end{smallmatrix}\bigr)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20V_%7Bi%2Cj%7D%3D%5Cdelta_%7Bi%2Cj%7D%3D%5Cbigl%28%5Cbegin%7Bsmallmatrix%7D%200%20%26if%20x_i%3Dx_j%20%5C%5C%201%20%26otherwise%20%5Cend%7Bsmallmatrix%7D%5Cbigr%29)。
+
+#### 基于模板生成先验概率
+许多研究人员已经使用模板来确保空间一致性，并将先验知识纳入分割。一种常用技术是从构建模板的群体中选择受试者的标记（例如Avants等2010）。然后，每个标记可以参考模板变换，变换的标记区域的合成产生先验概率图或先验标记图，表征标记在解剖空间的分布，这在联合分割、注册或混合未标记对象的Atropos、ANTs软件综合封装。
+
+采用Ashburner和Friston（2005）给出的策略，特定体素标记的先验概率，不管强度如何，被标记的空间变化的混合比例替代，![LATEX:\mathrm{Pr}(x_i=\ell_k)=\frac{\gamma_kt_{ik}}{\sum_{j=1}^K\gamma_jt_{ij}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmathrm%7BPr%7D%28x_i%3D%5Cell_k%29%3D%5Cfrac%7B%5Cgamma_kt_%7Bik%7D%7D%7B%5Csum_%7Bj%3D1%7D%5EK%5Cgamma_jt_%7Bij%7D%7D)，其中![LATEX:gamma](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma)是混合参数。![LATEX:t_{ij}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20t_%7Bij%7D)体素i对应标记k的先验概率，通常通过参考模板注册本体图像获得。
+
+### 优化最大后验概率
+
+#### Atropos
+Atropos使用期望最大化为用户选择的贝叶斯分割问题找到局部最优解。在似然模型参数的初始估计之后，EM通过最大化全部数据对数似然的期望在计算缺失的最优标签x和重新估计模型参数之间迭代。期望最大化过程来源于包括Zhang等人在内的各种论文（2001）。它产生最优均值和方差（或协方差），但将混合参数看作常数。
+
+Atropos在每次迭代时估计混合参数，类似于Ashburner和Friston（2005）。当Atropos使用MRF先验概率约束空间相干性时，最优分割解决方案变得棘手。尽管存在许多优化技术（参见Marroquin等，2002，对无数优化可能性的简要概述）它们在计算复杂性和准确性方面具有其特有的优缺点。Atropos使用众所周知的条件迭代模式（ICM Besag 1986），它贪婪，计算效率高，并且有良好的性能。
+
+***初始化***<br>
+在所有情况下，用户都定义要分割的类型的数量。最简单的初始化是使用经典的K-means或Otsu阈值算法，仅需要用户指定类型数量。否则，用户必须提供每个类型的先验概率，先验概率形式可以是单个多元先验概率图或者一系列先验概率图。初始化还提供初始参数。
+
+***标记更新***<br>
+给定初始化和模型参数，Atropos能够同步或异步地更新当前的标签估计值。前者的特点是遍历全部图像并确定最大后验概率的标签，直到遍历完所有体素标签后，再同时更新标签（因此称作“同步”）。然而，与ICM的异步方案不同，同步更新无法保证收敛。为了保证获得最大后验概率的标签使用异步方法，首先创建ICM代码图片用于全部遍历过程，使掩码中的每一个体素都对应一个ICM代码标记，由此每一个MRF邻域都有一个不重复的ICM代码标记集。因此，ICM代码图像中的每个掩码体素被赋予范围{1，...，C}中的值，其中C是最大代码标签。这样的图像可以被创建和查看。对于每次迭代，可以选择ICM代码序列，即异步更新的顺序。每次ICM代码更新都会提高后验概率值，直至收敛（大约五次迭代）。可以在命令行中指定ICM迭代的最大数量。
+
+***参数更新***<br>
+请注意，前次迭代中使用的后验概率用于当前迭代中的参数估计。对混合参数估计应用一个常用的元素估计：<br>
+![LATEX:\gamma_k\leftarrow\frac{1}{N}\sum_{i=1}^Np_k(\ell_k|y_i)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma_k%5Cleftarrow%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29)<br>
+通过计算更新模型参数，对每个标记，均值<br>
+![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^Ny_ip_k(\ell_k|y_i)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENy_ip_k%28%5Cell_k%7Cy_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br>
+变量范围<br>
+![LATEX:\delta_k^2\leftarrow\frac{\sum_{i=1}^N(y_i-\mu_k)^Tp_k(\ell_k|y_i)(y_i-\mu_k)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cdelta_k%5E2%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%28y_i-%5Cmu_k%29%5ETp_k%28%5Cell_k%7Cy_i%29%28y_i-%5Cmu_k%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br>
+在多元数据的情况下，后两个数量分别被修改如下<br>
+![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^N\mathbf y_ip_k(\ell_k|\mathbf y_i)}{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%5Cmathbf%20y_ip_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)
+协方差矩阵的计算公式是<br>
+![LATEX:\Sigma_k\leftarrow\frac{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)(\mathbf y_i - \mu_k)^T(\mathbf y_i - \mu_k)}{1-\sum_{i=1}Np_k^2(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5CSigma_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%5ET%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%7D%7B1-%5Csum_%7Bi%3D1%7DNp_k%5E2%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)<br>
+这种类型的更新被称为软EM。相反，硬EM只使用包含标签的体素来更新匹配模型的参数。非参数情况下使用类似的模式。
+
+EM将迭代到局部最大值。我们通过总结分割域上每个体素的最大后验概率来跟踪收敛。上面的参数更新取决于所选择的编码策略（Besag 1986）。Atropos可以使用经典的顺序的更新或标签的同步更新，后者通常在实践中被应用。虽然同步更新不保证收敛，但由于其内在的并行性和速度，我们默认采用它。如果用户希望理论上的收敛保证，用户也可以选择顺序更新。然而，实践中我们并未发现性能差异，使我们相信一种方法相对于另一种方法具有绝对的优越性。
+
+#### 隐式马尔可夫随机场期望估计
+为了拟合HMRF模型，使用EM算法。我们表明，通过将HMRF模型和EM算法结合到HMRF-EM框架中，可以实现准确且强健的分割。 Atropos引用了的大部分细节，这些细节参考了Zhang 2001。FAST软件包是算法的实现。
+
+## 深度学习算法基本介绍
+（待完成）
+
+# ADDL
+ADDL项目基于ADNI中阿尔兹海默症和非阿尔兹海默症主体的结构核磁共振影像（T1， 2017）数据，利用ResNet学习经预处理得到的大脑灰质组织图片，结合诊断算法，实现对阿尔兹海默症的诊断，并获得高于87%的诊断精度。
+
+ADDL项目包含预处理，分组，训练和诊断四个过程。预处理过程将研究组中所有主体的结构核磁共振影像（T1）数据分割注册得到灰质组织图片。分组过程将研究组中的主体分成训练集和测试集。训练过程是将训练集的数据输入ResNet模型训练。诊断过程将测试组中某个主体的灰质组织图片输入训练好的ResNet模型，应用诊断算法判断该主体是否患有阿尔兹海默症。
+
+本章将从ADNI被试，预处理，分组，ResNet模型和诊断算法五个方面介绍ADDL中使用到的算法。
+
+## ADNI被试
+（待完成, 集成之前的统计数据）
+
+## 预处理
+预处理过程对全部研究主体的原始的结构核磁共振影像（T1）数据应用分割算法得到灰质组织数据，并将灰质组织数据从原生空间参考相同的模板变换到到立体空间。关于分割，首先应用ANTsR工具从全部研究主体的原始的结构核磁共振影像数据中分割提取脑部组织（即灰质、白质）；然后应用FAST工具从上一部得到的脑部组织中分割提取灰质区域。关于注册，首先基于ICBM-152灰质模板和全部主体的灰质数据生成研究型注册模板；然后参考生成的模板将原生空间中的灰质数据空间变换标准化到新的立体空间；接着是一个调制过程使空间变换标准化后体素中各组织体积不变；最后是平滑过程。
+
+本节将分别介绍预处理过程中的六个部分，大脑提取，灰质分割，创建模板，空间变换标准化，体素体积调制和平滑。
+
+### 大脑提取
+这是一个完全自动化的过程，用于去除头皮组织，颅骨和硬脑膜静脉窦对应的体素。 该过程先将最初的结构核磁共振图像（原生空间）分割成灰质和白质图像，然后是一系列全自动形态学操作，用于裁剪未连接的非脑部体素（侵蚀和随后的条件扩张）。 产生的图像即是原生空间中的灰质和白质区域。
+
+### 灰质分割
+数据被分割成灰质，白质，脑脊液和其他非脑组织区域。SPM分割采用聚类分析混合模型，依据正常人脑部组织空间分布先验的概率图，来识别与体素强度相匹配的特定组织（灰质，白质和脑脊液）。分割步骤还结合了图像强度不均匀性校正（Ashburner和Friston，2000），以处理由在MRI顶部线圈中内颅结构的不同位置引起的图像强度变化。
+
+数据被分割成灰质，白质，脑脊液和其他非脑组织区域。SPM分割采用聚类分析混合模型，依据正常人脑部组织空间分布先验的概率图，来识别与体素强度相匹配的特定组织（灰质，白质和脑脊液）。分割步骤还结合了图像强度不均匀性校正（Ashburner和Friston，2000），以处理由在MRI顶部线圈中内颅结构的不同位置引起的图像强度变化。
+
+#### 创建模板
+首先，由正常被试者的子组构建解剖模板，子组的平均年龄和年龄范围与整个研究组匹配，为了减少扫描仪偏差并提供适合全部样本的模板，被试组在相同的MRI扫描仪上以相同扫描参数成像。 然后，将每个结构化MRI数据参考ICBM-152模板（蒙特利尔神经学研究所）进行空间标准化，该模板来源于152个正常对象并且近似Talairach空间。 最后，使用8毫米全宽半高（FWHM）各向同性高斯内核对标准化数据进行平滑，得到平均图像（模板）。
+
+#### 空间变换标准化
+通过注册相同的模板，将全部被试者的每一张核磁共振图片（原生空间）变换到同一个立体空间，并使用残差平方和作为匹配标准（损失函数）。 空间标准化的第一步是引入估计好的与模板最匹配的12个参数的仿射变换来处理图片（Ashburner等，1997）。基于脑大小正常变化的先验知识，利用贝叶斯框架,来进行空间变换的最大后验（MAP）估计。 第二步处理全局非线性形状差异，模型是平滑空间基函数的线性组合（Ashburner和Friston，1999）。掩码被用于空间标准化，以区分脑组织和非脑组织。空间标准化后图像的最终体素大约是![1.5\times1.5\times1.5\, mm^3](http://latex.codecogs.com/gif.latex?1.5%5Ctimes1.5%5Ctimes1.5%5C%2C%20mm%5E3)。
+
+#### 体素体积调制
+非线性空间标准化的一个结果是使大脑某些区域的体积增加或缩小。 为了保持体素内特定组织（灰质或白质或CSF）的体积，引入进一步的处理步骤。 将分割图像中的体素值乘以（或调制）从空间标准化步骤导出的雅可比行列式。 实际应用中上，调制的数据用于分析测试灰质绝对量（体积）的区域差异，而未调制数据用于分析测试灰质浓度的区域差异（原生空间单位体积）（Ashburner和Friston，2000）。
+
+#### 平滑
+使用12毫米FWHM各向同性高斯核对标准化的分割图像进行平滑。 这使得数据更加符合用于推断区域特定效应的统计过程的高斯场模型。平滑使数据更加符合正态分布（通过中心极限定理）。平滑后的数据，每个体素中的强度是来自周围体素区域的灰质密度的局部加权平均值，该局部区域的大小由平滑内核的大小定义（Ashburner和Friston，2000）。
+
+## 训练集和测试集分组
+全部被试分为训练和验证两组，训练集用于更新ResNet模块参数，验证集将不会参加ResNet训练过程。如果训练集中的数据参加诊断过程，那将获得100％的准确性。 为保证AD和非AD受试者和数据比例在训练和验证集中的分布相同，以避免偏差，考虑到受访对象的受试者人数在ADNI中的不同，ADDL包含了基于受试者统计数据的分组工具（其中，AD和非AD比例是可配置的)。
+
+## ResNet 模型
+待完成，添加具体网络细节。
+
+## 诊断算法
+诊断过程的ResNet模块的输出是标记的矢量，它反映沿着Z轴的图像的AD预测值。考虑到不同的GM位置或组织连接可能反应AD特征，为了更好的准确性，我们用加权各个元素的标签向量做为诊断依据。
+
+# 参考文献
+*	Saman Sarraf, DeepAD: Alzheimer's Disease Classification via Deep Convolutional Neural Networks using MRI and fMRI, doi: http://dx.doi.org/10.1101/070441, 2016
+*	Alex Krizhevsky, ImageNet Classification with Deep Convolutional Neural Networks
+*	Brian B. Avants, A Reproducible Evaluation of ANTs Similarity Metric Performance in Brain Image Registration, doi:10.1016/j.neuroimage.2010.09.025
+*	Max A. Viergever , A survey of medical image registration – under review, 2016
+*	J. B. Antoine Maintz, A survey of medical image registration, Medical Image Analysis (1998) volume 2, number 1, pp 1–36
+*	Kate E. Macdonald , Automated Template-Based Hippocampal Segmentations from MRI: The Effects of 1.5T or 3T Field Strength on Accuracy, DOI 10.1007/s12021-013-9217-y, 2014
+*	Fatma El-Zahraa Ahmed El-Gamal, Current trends in medical image registration and fusion, Egyptian Informatics Journal (2016) 17, 99–124, 2015
+*	Matthew Lai, Deep Learning for Medical Image Segmentation, arXiv:1505.02000v1, 2015
+*	Shumao Pang, Hippocampus Segmentation Based on Local Linear Mapping, DOI: 10.1038/srep45501, 2016
+*	Yongfu Hao, Local Label Learning (L3) for Multi-Atlas based Segmentation, doi: 10.1117/12.911014, 2012
+*	Yoshua Bengio, Representation Learning: A Review and New Perspectives, rXiv:1206.5538v3, 2014
+*	Guorong Wu, Scalable High Performance Image Registration Framework by Unsupervised Deep Feature Representations Learning, doi:10.1109/TBME.2015.2496253, 2016
+*	Guorong Wu, Unsupervised Deep Feature Learning for Deformable Registration of MR Brain Images, Med Image Comput Comput Assist Interv. 2013 ; 16(0 2): 649–656., 2014
+* Hiba A. Mohammed, The Image Registration Techniques for Medical Imaging (MRI-CT), doi:10.5923/j.ajbe.20160602.02, 2016
+* Hajnal, J. V., Hawkes, D. J., & Hill, D. L. (2001). Medical Image Registration. CRC Press.
