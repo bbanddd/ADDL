@@ -14,7 +14,7 @@
 ## 脑解剖学
 中枢神经系统有两种组织：灰质和白质，灰质，在活脑中有粉红灰色，包含神经元的细胞体，树突和轴突终端，所以它是所有突触的地方。白质由连接灰质不同部分的轴突组成。
 
-![Figure of Basic Brain Anatomy](sc/sc_wp_anatomy_en_1.png)
+![Figure of Basic Brain Anatomy](images/sc_wp_anatomy1_en.png)
 
 ***灰质***<br>
 灰质是中枢神经系统的主要成分，由神经元细胞体，神经纤维（树突和髓鞘以及无髓鞘轴突），神经胶质细胞（星形胶质细胞和少突胶质细胞），突触和毛细血管组成。灰质与白质有区别，因为它含有许多细胞体和相对较少的髓鞘化轴突，而白质含有相对较少的细胞体，并且主要由远距离有髓鞘的轴突束组成。色差主要来自髓磷脂的白度。在活体组织中，灰质实际上具有浅灰色，带有淡黄色或粉红色，来自毛细血管和神经元细胞体。
@@ -83,34 +83,34 @@
 
 #### 成本函数
 ***最小二乘***<br>
-最小二乘成本函数可能是最为熟悉的，它是大多数标准统计方法的基础。该成本函数测量每个图像中体素强度之间的平均差异。<br>
-![Equation_1_C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2)<br>
+最小二乘成本函数可能是最为熟悉的，它是大多数标准统计方法的基础。该成本函数测量每个图像中体素强度之间的平均差异，<br><br>
+![LATEX:C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2)<br><br>
 其中Av和Bv分别表示第v个体素图像A和B的强度。因为它测量每个体素值的相似性，所以最小二乘成本函数仅适用于模态内注册。即使在模态中，如果两幅图像具有不同的强度分布（例如，一个比另一个更亮或者具有更宽范围的强度），则其性能可能会很差。一种方法是AIR软件包中的一个选项，首先在使用最小二乘成本函数之前对光强分布进行缩放，以使它们落在图像的相同范围内。
 
 ***相关归一化***<br>
-归一化相关测量两幅图像中体素强度之间的线性关系。<br>
-![Equaltion_1_C=\frac{\sum_{v=1}^nA_vB_v}{\sqrt{\sum_{v=1}^nA_v^2}\sqrt{\sum_{v=1}^nB_v^2}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Cfrac%7B%5Csum_%7Bv%3D1%7D%5EnA_vB_v%7D%7B%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnA_v%5E2%7D%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnB_v%5E2%7D%7D)<br>
+归一化相关测量两幅图像中体素强度之间的线性关系。<br><br>
+![LATEX:C=\frac{\sum_{v=1}^nA_vB_v}{\sqrt{\sum_{v=1}^nA_v^2}\sqrt{\sum_{v=1}^nB_v^2}}](http://latex.codecogs.com/gif.latex?C%3D%5Cfrac%7B%5Csum_%7Bv%3D1%7D%5EnA_vB_v%7D%7B%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnA_v%5E2%7D%5Csqrt%7B%5Csum_%7Bv%3D1%7D%5EnB_v%5E2%7D%7D)<br><br>
 这一方法仅适用于模式内注册。在比较运动校正的许多不同成本函数时（Jenkinson等，2002）归一化相关结果比其他几个成本函数包括最小二乘法更准确地进行配准。这是FSL软件包中用于运动修正的默认成本函数。
 
 ***互信息***<br>
-尽管前面描述的用于模态内注册的成本函数在经典统计中有其基础，互信息成本函数（Pluim等，2003）可用于模态间注册或模式内注册，源于信息论中的熵。熵指的是信号中存在的不确定性或随机性的数量。<br>
-![H=\sum_{i=1}^Np_i\log(\frac 1 p_i)=-\sum_{i=1}^Np_i\log(p_i)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20H%3D%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28%5Cfrac%201%20p_i%29%3D-%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28p_i%29)<br>
-其中pi是变量的每个可能值xi的概率，对于连续变量，这些值被分组为N个组的统计直方。熵测量信号中变量的每个不同可能值的发生程度。如果只有一个信号值可能出现，则熵被最小化。如果每个不同的值经常出现，则熵被最大化。以这种方式，它与信号的变化密切相关，并且也与人们可以预测信号的下一个值的不确定性有关。通过检查图像的联合直方图可以将熵扩展到多个图像，这些图像绘制了图像中所有体素的所有可能值的强度​​组合的频率。如果两幅图像相同，则联合直方图沿对角线方向具有值，因为这些值在每幅图像中的体素将是相同的，而图像之间的差异导致整个直方图上的值的更大离差；注意到对于这种情况下的情况，相互作用将是比互信息（MI）更合适的成本函数测量。对于不同形式的图像，互信息更合适，更大的配准不准会导致联合直方图中的色散更大。然后可以根据这个联合直方图计算两幅图像A和B的联合熵<br>
-![H(A,B)=\sum_{i,j}p_{i,j}\log(\frac{1}{p_{i,j}})](http://latex.codecogs.com/gif.latex?%5Cbg_white%20H%28A%2CB%29%3D%5Csum_%7Bi%2Cj%7Dp_%7Bi%2Cj%7D%5Clog%28%5Cfrac%7B1%7D%7Bp_%7Bi%2Cj%7D%7D%29)<br>
+尽管前面描述的用于模态内注册的成本函数在经典统计中有其基础，互信息成本函数（Pluim等，2003）可用于模态间注册或模式内注册，源于信息论中的熵。熵指的是信号中存在的不确定性或随机性的数量。<br><br>
+![LATEX:H=\sum_{i=1}^Np_i\log(\frac 1 p_i)=-\sum_{i=1}^Np_i\log(p_i)](http://latex.codecogs.com/gif.latex?H%3D%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28%5Cfrac%201%20p_i%29%3D-%5Csum_%7Bi%3D1%7D%5ENp_i%5Clog%28p_i%29)<br><br>
+其中pi是变量的每个可能值xi的概率，对于连续变量，这些值被分组为N个组的统计直方。熵测量信号中变量的每个不同可能值的发生程度。如果只有一个信号值可能出现，则熵被最小化。如果每个不同的值经常出现，则熵被最大化。以这种方式，它与信号的变化密切相关，并且也与人们可以预测信号的下一个值的不确定性有关。通过检查图像的联合直方图可以将熵扩展到多个图像，这些图像绘制了图像中所有体素的所有可能值的强度​​组合的频率。如果两幅图像相同，则联合直方图沿对角线方向具有值，因为这些值在每幅图像中的体素将是相同的，而图像之间的差异导致整个直方图上的值的更大离差；注意到对于这种情况下的情况，相互作用将是比互信息（MI）更合适的成本函数测量。对于不同形式的图像，互信息更合适，更大的配准不准会导致联合直方图中的色散更大。然后可以根据这个联合直方图计算两幅图像A和B的联合熵<br><br>
+![LATEX:H(A,B)=\sum_{i,j}p_{i,j}\log(\frac{1}{p_{i,j}})](http://latex.codecogs.com/gif.latex?H%28A%2CB%29%3D%5Csum_%7Bi%2Cj%7Dp_%7Bi%2Cj%7D%5Clog%28%5Cfrac%7B1%7D%7Bp_%7Bi%2Cj%7D%7D%29)<br><br>
 其中i指示A和j的B值的指数值。当图像B的值完全可以通过图像A中相同体素的值预测时，该度量最低。
 
-互信息是个体图像的总体熵与联合熵之间的差异：<br>
-![MI=H(A)+H(B)-H(A,B)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20MI%3DH%28A%29&plus;H%28B%29-H%28A%2CB%29)<br>
+互信息是个体图像的总体熵与联合熵之间的差异，<br><br>
+![LATEX:MI=H(A)+H(B)-H(A,B)](http://latex.codecogs.com/gif.latex?MI%3DH%28A%29&plus;H%28B%29-H%28A%2CB%29)<br><br>
 其中H（A）和H（B）分别为每幅图像中的值分别计算出的熵（称为边缘熵），H（A，B）是联合熵。 当联合熵最小时，互信息最大，当一幅图像的值从另一幅图像最大可预测时发生。因此，互信息可以用作两幅图像之间的相似性度量。
 
-互信息的一个潜在问题是，在某些情况下，即使图像之间的重叠减少，互信息也会增加。出于这个原因，已经提出了互信息系数的标准化（Studholme等，1999）：<br>
-![MI=\frac{H(A)+H(B)}{H(A,B)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20MI%3D%5Cfrac%7BH%28A%29&plus;H%28B%29%7D%7BH%28A%2CB%29%7D)
+互信息的一个潜在问题是，在某些情况下，即使图像之间的重叠减少，互信息也会增加。出于这个原因，已经提出了互信息系数的标准化（Studholme等，1999），<br><br>
+![LATEX:MI=\frac{H(A)+H(B)}{H(A,B)}](http://latex.codecogs.com/gif.latex?MI%3D%5Cfrac%7BH%28A%29&plus;H%28B%29%7D%7BH%28A%2CB%29%7D)<br>
 
 所有主要软件包（FSL，SPM和AFNI）都提供图像注册的常规和标准化交互信息成本函数。
 
 ***相关比例***<br>
-相关比率（Roche等，1998）衡量一种测度方差是如何被另一种测度中的方差所捕获的。两个图像A和B的相关比被定义为<br>
-![C=\frac{1}{Var(A)}\sum_{k=1}^N\frac{n_k}{N}Var(A_k)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20C%3D%5Cfrac%7B1%7D%7BVar%28A%29%7D%5Csum_%7Bk%3D1%7D%5EN%5Cfrac%7Bn_k%7D%7BN%7DVar%28A_k%29)<br>
+相关比率（Roche等，1998）衡量一种测度方差是如何被另一种测度中的方差所捕获的。两个图像A和B的相关比被定义为<br><br>
+![LATEX:C=\frac{1}{Var(A)}\sum_{k=1}^N\frac{n_k}{N}Var(A_k)](http://latex.codecogs.com/gif.latex?C%3D%5Cfrac%7B1%7D%7BVar%28A%29%7D%5Csum_%7Bk%3D1%7D%5EN%5Cfrac%7Bn_k%7D%7BN%7DVar%28A_k%29)<br><br>
 其中k是对B的每个唯一值的索引，并且N是B的唯一值的数目。如果A和B是相同的，那么在所有具有某个特定B值的体素中，A的值不会有变化 ，并且相关比率变为零。这种测量方法类似于在AIR软件包（Woods等，1993）中首次实施用于PET-MRI配准的伍兹标准，虽然它在某些情况下表现出不同（Jenkinson和Smith，2001）。它适用于模态内和模态间注册，并且是FSL软件包中模态成本函数之间的默认值。
 
 #### 插值
@@ -141,7 +141,15 @@ Talairach图谱是最著名的大脑图谱，是由Talairach（1967）创建，�
 ## 大脑分割的理论基础
 贝叶斯定理提供一种强有力的机制来进行归纳推理，通过似然和先验概率给出条件概率的定义。基于贝叶斯理论的大脑图像分割，以用户选择的观察模型来定义似然和一个或多个先验概率项。似然项和先验概率的乘积与后验概率成正比。似然项可由参数（例如，高斯模型）定义或非参数（例如，样本直方图的Parzen窗）来定义。先验概率在文献中通常也被称为基于马尔科夫场或基于模板。本文中的图像分割方法相当于求解体素标记的最大后验概率。
 
-通用的贝叶斯框架（Sanjay-Gopal和Hebert，1998）关注贝叶斯公式的似然模型和先验模型，![LATEX:\underset{\mathrm{Postpior}}{\underbrace{p(\mathbf x|\mathbf y)}}={\underset{\mathrm{Likelihood}}{\underbrace{p(\mathbf y|\mathbf x)}}}\;{\underset{\mathrm{Prior}}{\underbrace{p(\mathbf x)}}}\;{\underset{\mathrm{Norm}}{\underbrace{\frac{1}{p(\mathbf y)}}}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cunderset%7B%5Cmathrm%7BPostpior%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20x%7C%5Cmathbf%20y%29%7D%7D%3D%7B%5Cunderset%7B%5Cmathrm%7BLikelihood%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20y%7C%5Cmathbf%20x%29%7D%7D%7D%5C%3B%7B%5Cunderset%7B%5Cmathrm%7BPrior%7D%7D%7B%5Cunderbrace%7Bp%28%5Cmathbf%20x%29%7D%7D%7D%5C%3B%7B%5Cunderset%7B%5Cmathrm%7BNorm%7D%7D%7B%5Cunderbrace%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%20y%29%7D%7D%7D%7D)，其中归一化项是不影响优化的常数。 给定似然模型和先验概率模型时，贝叶斯分割解决方案就是标记的最大后验概率（即![LATEX:\widehat{\mathbf x}=\underset{\mathbf x}{\mathrm{argmax}}\left\{p(\mathbf y|\mathbf x)p(\mathbf x)\right\}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cwidehat%7B%5Cmathbf%20x%7D%3D%5Cunderset%7B%5Cmathbf%20x%7D%7B%5Cmathrm%7Bargmax%7D%7D%5Cleft%5C%7Bp%28%5Cmathbf%20y%7C%5Cmathbf%20x%29p%28%5Cmathbf%20x%29%5Cright%5C%7D)）。最大期望估计框架（Dempster 等，1977）找到解决这个问题的解决方案。
+通用的贝叶斯框架（Sanjay-Gopal和Hebert，1998）关注贝叶斯公式的似然模型和先验模型，<br><br>
+![\underbrace{\vphantom{\frac{1}{p(\mathbf{y})
+}}p(\mathbf{x}|\mathbf{y})}_\text{Postpior}=\underbrace{\vphantom{\frac{1}{p(\mathbf{y})
+}}p(\mathbf{y}|\mathbf{x})}_\text{Likelihood}\underbrace{\vphantom{\frac{1}{p(\mathbf{y})
+}}p(\mathbf{x})}_\text{Prior}\underbrace{\frac{1}{p(\mathbf{y})
+}}_\text{Norm}](http://latex.codecogs.com/gif.latex?%5Cunderbrace%7B%5Cvphantom%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%7By%7D%29%20%7D%7Dp%28%5Cmathbf%7Bx%7D%7C%5Cmathbf%7By%7D%29%7D_%5Ctext%7BPostpior%7D%3D%5Cunderbrace%7B%5Cvphantom%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%7By%7D%29%20%7D%7Dp%28%5Cmathbf%7By%7D%7C%5Cmathbf%7Bx%7D%29%7D_%5Ctext%7BLikelihood%7D%5Cunderbrace%7B%5Cvphantom%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%7By%7D%29%20%7D%7Dp%28%5Cmathbf%7Bx%7D%29%7D_%5Ctext%7BPrior%7D%5Cunderbrace%7B%5Cfrac%7B1%7D%7Bp%28%5Cmathbf%7By%7D%29%20%7D%7D_%5Ctext%7BNorm%7D)<br><br>
+其中归一化项是不影响优化的常数。 给定似然模型和先验概率模型时，贝叶斯分割解决方案就是标记的最大后验概率。<br><br>
+![LATEX:\widehat{\mathbf x}=\underset{\mathbf x}{\mathrm{argmax}}\left\{p(\mathbf y|\mathbf x)p(\mathbf x)\right\}](http://latex.codecogs.com/gif.latex?%5Cwidehat%7B%5Cmathbf%20x%7D%3D%5Cunderset%7B%5Cmathbf%20x%7D%7B%5Cmathrm%7Bargmax%7D%7D%5Cleft%5C%7Bp%28%5Cmathbf%20y%7C%5Cmathbf%20x%29p%28%5Cmathbf%20x%29%5Cright%5C%7D)<br><br>
+最大期望估计框架（Dempster 等，1977）找到解决这个问题的解决方案。
 
 接下来介绍贝叶斯分割中三个基本组成部分，似然或观测模型，基于广义MRF或模板的先验概率，以及求最大后验概率的优化框架。这些部分在大多数基于最大期望的分割算法中很常见。
 
@@ -150,12 +158,18 @@ Talairach图谱是最著名的大脑图谱，是由Talairach（1967）创建，�
 #### 参数和非参数模型
 每个标记对应一个概率模型描述像素位置在体素方面的变化概率。体素概率有参数和非参数的定义。
 
-在参数情况下，出于简单性和良好的性能，体素概率通常被定义为正态分布。其中![LATEX:p_k(y_i|\ell_k)=G(\mu_k,\sigma_k)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p_k%28y_i%7C%5Cell_k%29%3DG%28%5Cmu_k%2C%5Csigma_k%29)，k是标记序号。当观测量是向量时，我们用马氏距离代替欧几里德距离，并通过平均向量和协方差矩阵定义多元高斯参数。
+在参数情况下，出于简单性和良好的性能，体素概率通常被定义为正态分布。<br><br>
+![LATEX:p_k(y_i|\ell_k)=G(\mu_k,\sigma_k)](http://latex.codecogs.com/gif.latex?p_k%28y_i%7C%5Cell_k%29%3DG%28%5Cmu_k%2C%5Csigma_k%29)<br><br>
+其中，k是标记序号。当观测量是向量时，我们用马氏距离代替欧几里德距离，并通过平均向量和协方差矩阵定义多元高斯参数。
 
-非参数变体的一种常用技术是使用采样数据统计直方图的Parzen窗来定义体素概率。![LATEX:p_k(y_i|\ell_k)=\frac{1}{N_B}\sum_{j=1}^{N_B}G(\mu_j,\delta_j)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p_k%28y_i%7C%5Cell_k%29%3D%5Cfrac%7B1%7D%7BN_B%7D%5Csum_%7Bj%3D1%7D%5E%7BN_B%7DG%28%5Cmu_j%2C%5Cdelta_j%29)，其中![LATEX:N_B](http://latex.codecogs.com/gif.latex?%5Cbg_white%20N_B)是观察数据统计直方图分段数量。对于观测分量数大于一的多维数据，为每个分量构造一个Parzen窗函数，似然函数由各分量的联合概率确定，即乘积。
+非参数变体的一种常用技术是使用采样数据统计直方图的Parzen窗来定义体素概率。<br><br>
+![LATEX:p_k(y_i|\ell_k)=\frac{1}{N_B}\sum_{j=1}^{N_B}G(\mu_j,\delta_j)](http://latex.codecogs.com/gif.latex?p_k%28y_i%7C%5Cell_k%29%3D%5Cfrac%7B1%7D%7BN_B%7D%5Csum_%7Bj%3D1%7D%5E%7BN_B%7DG%28%5Cmu_j%2C%5Cdelta_j%29)<br><br>
+其中!![LATEX:N_B](http://latex.codecogs.com/gif.latex?N_B)是观察数据统计直方图分段数量。对于观测分量数大于一的多维数据，为每个分量构造一个Parzen窗函数，似然函数由各分量的联合概率确定，即乘积。
 
 #### 有限混合模型
-有限混合模型的分割似然估计是最常用的模型，因为它具有简单的数学形式和理想大脑MRI的分段不变特性。有限混合模型通过假设体素之间独立性来计算与整个观测集相关的概率。体素之间的空间关联由先验概率建模。![LATEX:p(\mathbf y|\mathbf x)=\prod_{i=1}^N\left(\sum_{k=1}^K\gamma_kp_k(y_i|\ell_k)\right)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p%28%5Cmathbf%20y%7C%5Cmathbf%20x%29%3D%5Cprod_%7Bi%3D1%7D%5EN%5Cleft%28%5Csum_%7Bk%3D1%7D%5EK%5Cgamma_kp_k%28y_i%7C%5Cell_k%29%5Cright%29)，其中![LATEX:\gamma](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma)是混合参数，K是标记种类数量，N是观测数据数量。
+有限混合模型的分割似然估计是最常用的模型，因为它具有简单的数学形式和理想大脑MRI的分段不变特性。有限混合模型通过假设体素之间独立性来计算与整个观测集相关的概率。体素之间的空间关联由先验概率建模。<br><br>
+![LATEX:p(\mathbf y|\mathbf x)=\prod_{i=1}^N\left(\sum_{k=1}^K\gamma_kp_k(y_i|\ell_k)\right)](http://latex.codecogs.com/gif.latex?p%28%5Cmathbf%20y%7C%5Cmathbf%20x%29%3D%5Cprod_%7Bi%3D1%7D%5EN%5Cleft%28%5Csum_%7Bk%3D1%7D%5EK%5Cgamma_kp_k%28y_i%7C%5Cell_k%29%5Cright%29)<br><br>
+其中![LATEX:\gamma](http://latex.codecogs.com/gif.latex?%5Cgamma)是混合参数，K是标记种类数量，N是观测数据数量。
 
 在ITK软件包中的Atropos工具的分割似然模型就是有限混合模型。
 
@@ -169,12 +183,19 @@ FAST软件包使用马尔科夫随机场做为分割似然模型。
 #### 生成马尔科夫先验概率
 我们会觉着较好的标记会考虑体素邻域的各向一致性，将空间关联性引入分割。这个主意可以通过马尔科夫理论对体素邻域的空间关联建模（Li 2001）。
 
-基于MRF理论和Hanmmersley-Clifford定理，先验概率的建模是![p(\mathbf x)=\underset{\mathrm{Partition}}{\underbrace Z}^{-1}\exp(-\underset{\mathrm{Energy}}{\underbrace U}(\mathbf x))](http://latex.codecogs.com/gif.latex?%5Cbg_white%20p%28%5Cmathbf%20x%29%3D%5Cunderset%7B%5Cmathrm%7BPartition%7D%7D%7B%5Cunderbrace%20Z%7D%5E%7B-1%7D%5Cexp%28-%5Cunderset%7B%5Cmathrm%7BEnergy%7D%7D%7B%5Cunderbrace%20U%7D%28%5Cmathbf%20x%29%29)，其中Partition函数是归一化因子；Energy函数仅由整个图像上的相邻站点之间的成对相互作用的总和组成，![LATEX:\underset{\mathrm{Energy}}{\underbrace{\mathbf{U}(\mathbf x)}}={\underset{\mathrm{Granularity}}{\underbrace \beta}}{\underset{\mathrm{Voxels}}{\underbrace{\sum{_{i=1}^N}}}}{\underset{\mathrm{Neighborhood}}{\underbrace{\sum_{j\in{\mathfrak N}}}}}\underset{\mathrm{Potential}}{\underbrace{V_{i,j}(x_i,x_j)}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cunderset%7B%5Cmathrm%7BEnergy%7D%7D%7B%5Cunderbrace%7B%5Cmathbf%7BU%7D%28%5Cmathbf%20x%29%7D%7D%3D%7B%5Cunderset%7B%5Cmathrm%7BGranularity%7D%7D%7B%5Cunderbrace%20%5Cbeta%7D%7D%7B%5Cunderset%7B%5Cmathrm%7BVoxels%7D%7D%7B%5Cunderbrace%7B%5Csum%7B_%7Bi%3D1%7D%5EN%7D%7D%7D%7D%7B%5Cunderset%7B%5Cmathrm%7BNeighborhood%7D%7D%7B%5Cunderbrace%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%20N%7D%7D%7D%7D%7D%5Cunderset%7B%5Cmathrm%7BPotential%7D%7D%7B%5Cunderbrace%7BV_%7Bi%2Cj%7D%28x_i%2Cx_j%29%7D%7D)，其中Granularity项是分割解决方案MRF先验的权重。 Potential函数通常Kronecker差定义，基于经典的Ising（也被称为Potts）模型（Besag，1974），![V_{i,j}=\delta_{i,j}=\bigl(\begin{smallmatrix} 0  &if x_i=x_j \\ 1  &otherwise \end{smallmatrix}\bigr)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20V_%7Bi%2Cj%7D%3D%5Cdelta_%7Bi%2Cj%7D%3D%5Cbigl%28%5Cbegin%7Bsmallmatrix%7D%200%20%26if%20x_i%3Dx_j%20%5C%5C%201%20%26otherwise%20%5Cend%7Bsmallmatrix%7D%5Cbigr%29)。
+基于MRF理论和Hanmmersley-Clifford定理，先验概率的建模是<br><br>
+![LATEX:p(\mathbf{x})={\underbrace{\vphantom{\exp(U)}Z}_\text{Partition}}^{-1}\exp(-{\underbrace{U(\mathbf{x})}_\text{Energy}})](http://latex.codecogs.com/gif.latex?p%28%5Cmathbf%7Bx%7D%29%3D%7B%5Cunderbrace%7B%5Cvphantom%7B%5Cexp%28U%29%7DZ%7D_%5Ctext%7BPartition%7D%7D%5E%7B-1%7D%5Cexp%28-%7B%5Cunderbrace%7BU%28%5Cmathbf%7Bx%7D%29%7D_%5Ctext%7BEnergy%7D%7D%29)<br><br>
+其中Partition函数是归一化因子；Energy函数仅由整个图像上的相邻站点之间的成对相互作用的总和组成，<br><br>
+![LATEX:\underbrace{\vphantom{\sum_{j\in{\mathfrak{N}}}}U(x)}_\text{Energy}=\underbrace{\vphantom{\sum_{j\in{\mathfrak{N}}}}\beta}_\text{Granularity}\underbrace{\vphantom{\sum_{j\in{\mathfrak{N}}}}\sum_{i=1}^N}_\text{Voxels}\underbrace{\vphantom{\sum_{j\in{\mathfrak{N}}}}\sum_{j\in{\mathfrak{N}}}}_\text{Neighborhood}\underbrace{\vphantom{\sum_{j\in{\mathfrak{N}}}}V_{i,j}(x_i,x_j)}_\text{Potential}](http://latex.codecogs.com/gif.latex?%5Cunderbrace%7B%5Cvphantom%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7DU%28x%29%7D_%5Ctext%7BEnergy%7D%3D%5Cunderbrace%7B%5Cvphantom%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7D%5Cbeta%7D_%5Ctext%7BGranularity%7D%5Cunderbrace%7B%5Cvphantom%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7D%5Csum_%7Bi%3D1%7D%5EN%7D_%5Ctext%7BVoxels%7D%5Cunderbrace%7B%5Cvphantom%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7D%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7D_%5Ctext%7BNeighborhood%7D%5Cunderbrace%7B%5Cvphantom%7B%5Csum_%7Bj%5Cin%7B%5Cmathfrak%7BN%7D%7D%7D%7DV_%7Bi%2Cj%7D%28x_i%2Cx_j%29%7D_%5Ctext%7BPotential%7D)<br><br>
+其中Granularity项是分割解决方案MRF先验的权重。 Potential函数通常Kronecker差定义，基于经典的Ising（也被称为Potts）模型（Besag，1974）。<br><br>
+![LATEX:V_{i,j}=\delta_{i,j}=\bigl(\begin{smallmatrix} 0  &if x_i=x_j \\ 1  &otherwise \end{smallmatrix}\bigr)](http://latex.codecogs.com/gif.latex?V_%7Bi%2Cj%7D%3D%5Cdelta_%7Bi%2Cj%7D%3D%5Cbigl%28%5Cbegin%7Bsmallmatrix%7D%200%20%26if%20x_i%3Dx_j%20%5C%5C%201%20%26otherwise%20%5Cend%7Bsmallmatrix%7D%5Cbigr%29)<br><br>
 
 #### 基于模板生成先验概率
 许多研究人员已经使用模板来确保空间一致性，并将先验知识纳入分割。一种常用技术是从构建模板的群体中选择受试者的标记（例如Avants等2010）。然后，每个标记可以参考模板变换，变换的标记区域的合成产生先验概率图或先验标记图，表征标记在解剖空间的分布，这在联合分割、注册或混合未标记对象的Atropos、ANTs软件综合封装。
 
-采用Ashburner和Friston（2005）给出的策略，特定体素标记的先验概率，不管强度如何，被标记的空间变化的混合比例替代，![LATEX:\mathrm{Pr}(x_i=\ell_k)=\frac{\gamma_kt_{ik}}{\sum_{j=1}^K\gamma_jt_{ij}}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmathrm%7BPr%7D%28x_i%3D%5Cell_k%29%3D%5Cfrac%7B%5Cgamma_kt_%7Bik%7D%7D%7B%5Csum_%7Bj%3D1%7D%5EK%5Cgamma_jt_%7Bij%7D%7D)，其中![LATEX:gamma](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma)是混合参数。![LATEX:t_{ij}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20t_%7Bij%7D)体素i对应标记k的先验概率，通常通过参考模板注册本体图像获得。
+采用Ashburner和Friston（2005）给出的策略，特定体素标记的先验概率，不管强度如何，被标记的空间变化的混合比例替代，<br><br>
+![LATEX:\mathrm{Pr}(x_i=\ell_k)=\frac{\gamma_kt_{ik}}{\sum_{j=1}^K\gamma_jt_{ij}}](http://latex.codecogs.com/gif.latex?%5Cmathrm%7BPr%7D%28x_i%3D%5Cell_k%29%3D%5Cfrac%7B%5Cgamma_kt_%7Bik%7D%7D%7B%5Csum_%7Bj%3D1%7D%5EK%5Cgamma_jt_%7Bij%7D%7D)<br><br>
+其中![LATEX:\gamma](http://latex.codecogs.com/gif.latex?%5Cgamma)是混合参数。![LATEX:t_{ij}](http://latex.codecogs.com/gif.latex?t_%7Bij%7D)体素i对应标记k的先验概率，通常通过参考模板注册本体图像获得。
 
 ### 优化最大后验概率
 
@@ -190,16 +211,16 @@ Atropos在每次迭代时估计混合参数，类似于Ashburner和Friston（200
 给定初始化和模型参数，Atropos能够同步或异步地更新当前的标签估计值。前者的特点是遍历全部图像并确定最大后验概率的标签，直到遍历完所有体素标签后，再同时更新标签（因此称作“同步”）。然而，与ICM的异步方案不同，同步更新无法保证收敛。为了保证获得最大后验概率的标签使用异步方法，首先创建ICM代码图片用于全部遍历过程，使掩码中的每一个体素都对应一个ICM代码标记，由此每一个MRF邻域都有一个不重复的ICM代码标记集。因此，ICM代码图像中的每个掩码体素被赋予范围{1，...，C}中的值，其中C是最大代码标签。这样的图像可以被创建和查看。对于每次迭代，可以选择ICM代码序列，即异步更新的顺序。每次ICM代码更新都会提高后验概率值，直至收敛（大约五次迭代）。可以在命令行中指定ICM迭代的最大数量。
 
 ***参数更新***<br>
-请注意，前次迭代中使用的后验概率用于当前迭代中的参数估计。对混合参数估计应用一个常用的元素估计：<br>
-![LATEX:\gamma_k\leftarrow\frac{1}{N}\sum_{i=1}^Np_k(\ell_k|y_i)](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cgamma_k%5Cleftarrow%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29)<br>
-通过计算更新模型参数，对每个标记，均值<br>
-![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^Ny_ip_k(\ell_k|y_i)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENy_ip_k%28%5Cell_k%7Cy_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br>
-变量范围<br>
-![LATEX:\delta_k^2\leftarrow\frac{\sum_{i=1}^N(y_i-\mu_k)^Tp_k(\ell_k|y_i)(y_i-\mu_k)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cdelta_k%5E2%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%28y_i-%5Cmu_k%29%5ETp_k%28%5Cell_k%7Cy_i%29%28y_i-%5Cmu_k%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br>
-在多元数据的情况下，后两个数量分别被修改如下<br>
-![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^N\mathbf y_ip_k(\ell_k|\mathbf y_i)}{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%5Cmathbf%20y_ip_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)
-协方差矩阵的计算公式是<br>
-![LATEX:\Sigma_k\leftarrow\frac{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)(\mathbf y_i - \mu_k)^T(\mathbf y_i - \mu_k)}{1-\sum_{i=1}Np_k^2(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cbg_white%20%5CSigma_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%5ET%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%7D%7B1-%5Csum_%7Bi%3D1%7DNp_k%5E2%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)<br>
+请注意，前次迭代中使用的后验概率用于当前迭代中的参数估计。对混合参数估计应用一个常用的元素估计：<<br><br>
+![LATEX:\gamma_k\leftarrow\frac{1}{N}\sum_{i=1}^Np_k(\ell_k|y_i)](http://latex.codecogs.com/gif.latex?%5Cgamma_k%5Cleftarrow%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29)<br><br>
+通过计算更新模型参数，对每个标记，均值<br><br>
+![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^Ny_ip_k(\ell_k|y_i)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENy_ip_k%28%5Cell_k%7Cy_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br><br>
+变量范围<<br><br>
+![LATEX:\delta_k^2\leftarrow\frac{\sum_{i=1}^N(y_i-\mu_k)^Tp_k(\ell_k|y_i)(y_i-\mu_k)}{\sum_{i=1}^Np_k(\ell_k|y_i)}](http://latex.codecogs.com/gif.latex?%5Cdelta_k%5E2%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%28y_i-%5Cmu_k%29%5ETp_k%28%5Cell_k%7Cy_i%29%28y_i-%5Cmu_k%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7Cy_i%29%7D)<br><br>
+在多元数据的情况下，后两个数量分别被修改如下<br><br>
+![LATEX:\mu_k\leftarrow\frac{\sum_{i=1}^N\mathbf y_ip_k(\ell_k|\mathbf y_i)}{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5Cmu_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5EN%5Cmathbf%20y_ip_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)<br><br>
+协方差矩阵的计算公式是<br><br>
+![LATEX:\Sigma_k\leftarrow\frac{\sum_{i=1}^Np_k(\ell_k|\mathbf y_i)(\mathbf y_i - \mu_k)^T(\mathbf y_i - \mu_k)}{1-\sum_{i=1}Np_k^2(\ell_k|\mathbf y_i)}](http://latex.codecogs.com/gif.latex?%5CSigma_k%5Cleftarrow%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5ENp_k%28%5Cell_k%7C%5Cmathbf%20y_i%29%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%5ET%28%5Cmathbf%20y_i%20-%20%5Cmu_k%29%7D%7B1-%5Csum_%7Bi%3D1%7DNp_k%5E2%28%5Cell_k%7C%5Cmathbf%20y_i%29%7D)<br><br>
 这种类型的更新被称为软EM。相反，硬EM只使用包含标签的体素来更新匹配模型的参数。非参数情况下使用类似的模式。
 
 EM将迭代到局部最大值。我们通过总结分割域上每个体素的最大后验概率来跟踪收敛。上面的参数更新取决于所选择的编码策略（Besag 1986）。Atropos可以使用经典的顺序的更新或标签的同步更新，后者通常在实践中被应用。虽然同步更新不保证收敛，但由于其内在的并行性和速度，我们默认采用它。如果用户希望理论上的收敛保证，用户也可以选择顺序更新。然而，实践中我们并未发现性能差异，使我们相信一种方法相对于另一种方法具有绝对的优越性。
@@ -237,7 +258,7 @@ ADDL项目包含预处理，分组，训练和诊断四个过程。预处理过�
 首先，由正常被试者的子组构建解剖模板，子组的平均年龄和年龄范围与整个研究组匹配，为了减少扫描仪偏差并提供适合全部样本的模板，被试组在相同的MRI扫描仪上以相同扫描参数成像。 然后，将每个结构化MRI数据参考ICBM-152模板（蒙特利尔神经学研究所）进行空间标准化，该模板来源于152个正常对象并且近似Talairach空间。 最后，使用8毫米全宽半高（FWHM）各向同性高斯内核对标准化数据进行平滑，得到平均图像（模板）。
 
 #### 空间变换标准化
-通过注册相同的模板，将全部被试者的每一张核磁共振图片（原生空间）变换到同一个立体空间，并使用残差平方和作为匹配标准（损失函数）。 空间标准化的第一步是引入估计好的与模板最匹配的12个参数的仿射变换来处理图片（Ashburner等，1997）。基于脑大小正常变化的先验知识，利用贝叶斯框架,来进行空间变换的最大后验（MAP）估计。 第二步处理全局非线性形状差异，模型是平滑空间基函数的线性组合（Ashburner和Friston，1999）。掩码被用于空间标准化，以区分脑组织和非脑组织。空间标准化后图像的最终体素大约是![1.5\times1.5\times1.5\, mm^3](http://latex.codecogs.com/gif.latex?1.5%5Ctimes1.5%5Ctimes1.5%5C%2C%20mm%5E3)。
+通过注册相同的模板，将全部被试者的每一张核磁共振图片（原生空间）变换到同一个立体空间，并使用残差平方和作为匹配标准（损失函数）。 空间标准化的第一步是引入估计好的与模板最匹配的12个参数的仿射变换来处理图片（Ashburner等，1997）。基于脑大小正常变化的先验知识，利用贝叶斯框架,来进行空间变换的最大后验（MAP）估计。 第二步处理全局非线性形状差异，模型是平滑空间基函数的线性组合（Ashburner和Friston，1999）。掩码被用于空间标准化，以区分脑组织和非脑组织。空间标准化后图像的最终体素大约是![LATEX:1.5\times1.5\times1.5\, mm^3](http://latex.codecogs.com/gif.latex?1.5%5Ctimes1.5%5Ctimes1.5%5C%2C%20mm%5E3)。
 
 #### 体素体积调制
 非线性空间标准化的一个结果是使大脑某些区域的体积增加或缩小。 为了保持体素内特定组织（灰质或白质或CSF）的体积，引入进一步的处理步骤。 将分割图像中的体素值乘以（或调制）从空间标准化步骤导出的雅可比行列式。 实际应用中上，调制的数据用于分析测试灰质绝对量（体积）的区域差异，而未调制数据用于分析测试灰质浓度的区域差异（原生空间单位体积）（Ashburner和Friston，2000）。
