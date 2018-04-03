@@ -23,7 +23,7 @@
       1. [Likelihood or Observation Models](#toc2.4.1)
          1. [Parameter and Non-parameter Model](#toc2.4.1.1)
          1. [Finite Mixture Model](#toc2.4.1.2)
-         1. [Hidden Markov Random field Model](#toc2.4.1.3)
+         1. [Hidden Markov Random Field Model](#toc2.4.1.3)
       1. [Prior Probability Models](#toc2.4.2)
          1. [Generalized MRF Prior](#toc2.4.2.1)
          1. [Template-base Priors](#toc2.4.2.2)
@@ -46,7 +46,7 @@
 1. [Reference](#toc4)
 
 ----
-[<p align='right'>Back to Content</p>](#toc_content)
+[<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc1">Introduction</a>
 
@@ -60,7 +60,7 @@
 * *EM* Expectation-Maximization
 
 ----
-[<p align='right'>Back to Content</p>](#toc_content)
+[<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc2">Basic</a>
 
@@ -138,6 +138,7 @@ For all nonlinear transformations, the greater the number of parameters, the mor
 ***Least Squares***<br>
 The least-squares cost function is perhaps the most familiar, as it is the basis for most standard statistical methods. This cost function measures the average squared difference between voxel intensities in each image,<br><br>
 ![LATEX:C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2)<br><br>
+![LATEX:C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2){: style="left"}<br><br>
 where Av and Bv refer to the intensity of the vth voxel in images A and B, respectively. Because it measures the similarity of values at each voxel, the least-squares cost function is only appropriate for within-modality registration. Even within modalities, it can perform badly if the two images have different intensity distributions (e.g., one is brighter overall than the other or has a broader range of intensities). One approach, which is an option in the AIR software package, is to first scale the intensity distributions before using the least-squares cost function so that they fall within the same range across images.
 
 ***Normalized Correlation***<br>
@@ -285,7 +286,7 @@ To fit the HMRF model, an EM algorithm is used. We show that by incorporating bo
 TBD
 
 ----
-[<p align='right'>Back to Content</p>](#toc_content)
+[<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc3">ADDL</a>
 The ADDL project is based on structural MRI (T1, 2017) data of Alzheimer's disease(AD) and non-Alzheimer's disease subjects in ADNI. It uses ResNet to learn the brain gray matter tissue images obtained through preprocessing, and combines diagnostic algorithms to achieve The diagnosis of AD, with a diagnostic accuracy of more than 87%.
@@ -332,22 +333,21 @@ TBD: Introduction the detail of resnet module.
 The output of ResNet module of the diagnostic process are a vector of labels, which reflect the AD predication values of images along the Z axon. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic.
 
 ----
-[<p align='right'>Back to Content</p>](#toc_content)
+[<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc4">Reference</a>
-
-1	<a id="r1">[Saman Sarraf, DeepAD: Alzheimer's Disease Classification via Deep Convolutional Neural Networks using MRI and fMRI, doi: http://dx.doi.org/10.1101/070441, 2016]()</a>
-1	<a id="r2">[Alex Krizhevsky, ImageNet Classification with Deep Convolutional Neural Networks]()</a>
-1	<a id="r3">[Brian B. Avants, A Reproducible Evaluation of ANTs Similarity Metric Performance in Brain Image Registration, doi:10.1016/j.neuroimage.2010.09.025]()</a>
-1	<a id="r4">[Max A. Viergever , A survey of medical image registration – under review, 2016]()</a>
-1	<a id="r5">[J. B. Antoine Maintz, A survey of medical image registration, Medical Image Analysis (1998) volume 2, number 1, pp 1–36]()</a>
-1	<a id="r6">[Kate E. Macdonald , Automated Template-Based Hippocampal Segmentations from MRI: The Effects of 1.5T or 3T Field Strength on Accuracy, DOI 10.1007/s12021-013-9217-y, 2014]()</a>
-1	<a id="r7">[Fatma El-Zahraa Ahmed El-Gamal, Current trends in medical image registration and fusion, Egyptian Informatics Journal (2016) 17, 99–124, 2015]()</a>
-1	<a id="r8">[Matthew Lai, Deep Learning for Medical Image Segmentation, arXiv:1505.02000v1, 2015]()</a>
-1	<a id="r9">[Shumao Pang, Hippocampus Segmentation Based on Local Linear Mapping, DOI: 10.1038/srep45501, 2016]()</a>
-1	<a id="r10">[Yongfu Hao, Local Label Learning (L3) for Multi-Atlas based Segmentation, doi: 10.1117/12.911014, 2012]()</a>
-1	<a id="r11">[Yoshua Bengio, Representation Learning: A Review and New Perspectives, rXiv:1206.5538v3, 2014]()</a>
-1	<a id="r12">[Guorong Wu, Scalable High Performance Image Registration Framework by Unsupervised Deep Feature Representations Learning, doi:10.1109/TBME.2015.2496253, 2016]()</a>
-1	<a id="r13">[Guorong Wu, Unsupervised Deep Feature Learning for Deformable Registration of MR Brain Images, Med Image Comput Comput Assist Interv. 2013 ; 16(0 2): 649–656., 2014]()</a>
-1 <a id="r14">[Hiba A. Mohammed, The Image Registration Techniques for Medical Imaging (MRI-CT), doi:10.5923/j.ajbe.20160602.02, 2016]()</a>
-1 <a id="r15">[Hajnal, J. V., Hawkes, D. J., & Hill, D. L. (2001). Medical Image Registration. CRC Press.]()</a>
+\[1\] <a id="r1">[Saman Sarraf, DeepAD: Alzheimer's Disease Classification via Deep Convolutional Neural Networks using MRI and fMRI, doi: http://dx.doi.org/10.1101/070441, 2016]()</a><br>
+\[2\] <a id="r2">[Alex Krizhevsky, ImageNet Classification with Deep Convolutional Neural Networks]()</a><br>
+\[3\] <a id="r3">[Brian B. Avants, A Reproducible Evaluation of ANTs Similarity Metric Performance in Brain Image Registration, doi:10.1016/j.neuroimage.2010.09.025]()</a><br>
+\[4\] <a id="r4">[Max A. Viergever , A survey of medical image registration – under review, 2016]()</a><br>
+\[5\] <a id="r5">[J. B. Antoine Maintz, A survey of medical image registration, Medical Image Analysis (1998) volume 2, number 1, pp 1–36]()</a><br>
+\[6\] <a id="r6">[Kate E. Macdonald , Automated Template-Based Hippocampal Segmentations from MRI: The Effects of 1.5T or 3T Field Strength on Accuracy, DOI 10.1007/s12021-013-9217-y, 2014]()</a><br>
+\[7\] <a id="r7">[Fatma El-Zahraa Ahmed El-Gamal, Current trends in medical image registration and fusion, Egyptian Informatics Journal (2016) 17, 99–124, 2015]()</a><br>
+\[8\] <a id="r8">[Matthew Lai, Deep Learning for Medical Image Segmentation, arXiv:1505.02000v1, 2015]()</a><br>
+\[9\] <a id="r9">[Shumao Pang, Hippocampus Segmentation Based on Local Linear Mapping, DOI: 10.1038/srep45501, 2016]()</a><br>
+\[10\] <a id="r10">[Yongfu Hao, Local Label Learning (L3) for Multi-Atlas based Segmentation, doi: 10.1117/12.911014, 2012]()</a><br>
+\[11\] <a id="r11">[Yoshua Bengio, Representation Learning: A Review and New Perspectives, rXiv:1206.5538v3, 2014]()</a><br>
+\[12\] <a id="r12">[Guorong Wu, Scalable High Performance Image Registration Framework by Unsupervised Deep Feature Representations Learning, doi:10.1109/TBME.2015.2496253, 2016]()</a><br>
+\[13\] <a id="r13">[Guorong Wu, Unsupervised Deep Feature Learning for Deformable Registration of MR Brain Images, Med Image Comput Comput Assist Interv. 2013 ; 16(0 2): 649–656., 2014]()</a><br>
+\[14\] <a id="r14">[Hiba A. Mohammed, The Image Registration Techniques for Medical Imaging (MRI-CT), doi:10.5923/j.ajbe.20160602.02, 2016]()</a><br>
+\[15\] <a id="r15">[Hajnal, J. V., Hawkes, D. J., & Hill, D. L. (2001). Medical Image Registration. CRC Press.]()</a><br>
