@@ -138,7 +138,6 @@ For all nonlinear transformations, the greater the number of parameters, the mor
 ***Least Squares***<br>
 The least-squares cost function is perhaps the most familiar, as it is the basis for most standard statistical methods. This cost function measures the average squared difference between voxel intensities in each image,<br><br>
 ![LATEX:C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2)<br><br>
-![LATEX:C=\sum_{v=1}^n(A_v-B_v)^2](http://latex.codecogs.com/gif.latex?C%3D%5Csum_%7Bv%3D1%7D%5En%28A_v-B_v%29%5E2){: style="left"}<br><br>
 where Av and Bv refer to the intensity of the vth voxel in images A and B, respectively. Because it measures the similarity of values at each voxel, the least-squares cost function is only appropriate for within-modality registration. Even within modalities, it can perform badly if the two images have different intensity distributions (e.g., one is brighter overall than the other or has a broader range of intensities). One approach, which is an option in the AIR software package, is to first scale the intensity distributions before using the least-squares cost function so that they fall within the same range across images.
 
 ***Normalized Correlation***<br>
