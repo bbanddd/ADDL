@@ -37,8 +37,9 @@ Note the CUDA and cuDNN should be exactly match.
 Select the suitable driver base on your OS and GPU device from the NVIDIA driver download address(https://www.nvidia.com/drivers). The example GPU is GeForce GTX 1080. Specially, the native GPU driver of CentOS is Noveau, which is a third party open source driver for NVDIA cards, but poor support for the DL computation, so we need remove it before install the formal one. The following steps show the download and install detal process.
 
 **Download**<br>
-1. Manually find the drivers at [link](https://www.nvidia.com/drivers). Select the matching fields from the drop box listed below; click the "SEARCH" button.<br>
-   ![Figure of Download NVIDIA Driver](/image/sc_install_driver1_en.png)
+1. Manually find the drivers at [link](https://www.nvidia.com/drivers). Select the matching fields from the drop box listed below; click the "SEARCH" button.<br><br>
+   ![Figure of Download NVIDIA Driver](images/sc_install_driver1_en.png)
+   <br><br>
 2. Click the "DOWNLOAD" button at the search result page.
 3. Click the "AGREE & DOWNLOAD" button downloading directly at the download confirmation page, or right click it for the download link.
 
@@ -72,11 +73,13 @@ Select the suitable CUDA version base on TenorFlow requiment, and select the sui
 
 **Download**<br>
 1. Manually find the CUDA 9.0 from the [archive page](https://developer.nvidia.com/cuda-toolkit-archive),
-2. Select the matching fields of the check box from the CUDA download page listed below.<br>
-   ![Figure of CUDA Select Target Platform](/images/sc_install_cuda1_en.png)
-3. The CUDA and patch packages listed below, the download link is at the "Download" button.<br>
-   ![Figure of CUDA and Patch Packages](/images/sc_install_cuda2_en.png)
-   
+2. Select the matching fields of the check box from the CUDA download page listed below.<br><br>
+![Figure of CUDA Select Target Platform](images/sc_install_cuda1_en.png)
+   <br><br>
+3. The CUDA and patch packages listed below, the download link is at the "Download" button.<br><br>
+![Figure of CUDA and Patch Packages](images/sc_install_cuda2_en.png)
+   <br><br>
+
 Downloaed Packages
 * `cuda_9.0.176_384.81_linux.run`
 * `cuda_9.0.176.1_linux.run`
@@ -95,8 +98,9 @@ cuDNN download and inatllation detail process.
 **Download**<br>
 1. Download cuDNN needs register as a NVIDIA Developer. Click "Join" button of the NVIDA developer [main page](https://developer.nvidia.com/) to finished the register process.
 2. Goto the cuDNN [download page](https://developer.nvidia.com/rdp/cudnn-download), and enable the check box of "cuDNN software license agreement".
-3. Select the cuDNN v7.0.5 for CUDA 9.0 as the TensorFlow requirement, and get the dropdown selections.<br>
-   ![Figure of cuDNN Download](/images/sc_install_cudnn1_en.png)
+3. Select the cuDNN v7.0.5 for CUDA 9.0 as the TensorFlow requirement, and get the dropdown selections.<br><br>
+   ![Figure of cuDNN Download](images/sc_install_cudnn1_en.png)
+   <br><br>
 4. Get the download link of the cuDNN package from the "cuDNN v7.0.5 Library for Linux" selection.
 
 Downloaded package is `cudnn-9.0-linux-x64-v7.solitairetheme8`.
@@ -115,7 +119,12 @@ tar xzvf cudnn-9.0-linux-x64-v7.tgz -C /usr/local
 ### Anaconda
 Anaconda is a freemium open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. Package versions are managed by the package management system conda.
 
+The project using Anaconda Python environment instead of CentOS7 native python environment, And Anaconda Python2.7 is installed at a normal user account named python2.
+
 **Download**<br>
+Select a latest Anaconda2 package base on the OS from the archive [url](https://repo.continuum.io/archive/).
+
+Downed package is `Anaconda2-5.1.0-Linux-x86_64.sh`.
 
 **Install Anaconda Command**<br>
 ```bash
@@ -132,10 +141,15 @@ conda config --set show_channel_urls yes
 ```
 
 ### TensorFlow
+TensorFlow™ is an open source software library for high performance numerical computation. Its flexible architecture allows easy deployment of computation across a variety of platforms (CPUs, GPUs, TPUs), and from desktops to clusters of servers to mobile and edge devices. Originally developed by researchers and engineers from the Google Brain team within Google’s AI organization, it comes with strong support for machine learning and deep learning and the flexible numerical computation core is used across many other scientific domains.
+
+**Download**<br>
+Please check the download [url](https://www.tensorflow.org/install/install_linux#the_url_of_the_tensorflow_python_package), and select "Python2.7" and "GPU support" package address(https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl).
 
 **Install TensorFlow Command**<br>
 ```bash
 # The installation process contains some dependency package installation.
+# If your pip downloading slowly, please change the PyPI mirror.
 pip install tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl
 
 # Assign CUDA environment variables suits for TensorFlow GPU.
@@ -145,19 +159,22 @@ echo "export CUDA_HOME=\"/usr/local/cuda\"" >> $HOME/.bashrc
 ```
 
 ### TFLearn
-TFlearn is a modular and transparent deep learning library built on top of Tensorflow. It was designed to provide a higher-level API to TensorFlow in order to facilitate and speed-up experimentations, while remaining fully transparent and compatible with it. The python PyPi 
+TFlearn is a modular and transparent deep learning library built on top of Tensorflow. It was designed to provide a higher-level API to TensorFlow in order to facilitate and speed-up experimentations, while remaining fully transparent and compatible with it. The PyPI/pip support TFLearn package installation.
 
 **Install TFLearn Command**<br>
 ```bash
 pip install tflearn
 ```
 
-#### pypi Mirror
+#### PyPI Mirrors
+Please use your prefer PyPI mirror. For example setting mirror https://pypi.tuna.tsinghua.edu.cn/simple as the default PyPI mirror.
 
-**Tempoary Usage**<br>
+**Temporary Usage**<br>
+```bash
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+```
 
 **Default Setting**<br>
-Example: Setting mirror https://pypi.tuna.tsinghua.edu.cn/simple as the default pypi mirror.
 Fill the following context to file `~/.config/pip/pip.conf`.
 ```
 [global]
@@ -167,10 +184,12 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ----
 
 # Neuroimaging Processing Tool Set
+The rapid progress of research in the neuroscience and neuroimaging fields has been accompanied by the development of many excellent analysis software tools. These are implemented in a variety of computer languages and programming environments.
 
 ----
 
 ## FSL
+FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data. It runs on Apple and PCs (both Linux, and Windows via a Virtual Machine), and is very easy to install. Most of the tools can be run both from the command line and as GUIs ("point-and-click" graphical user interfaces). To quote the relevant references for FSL tools you should look in the individual tools' manual pages.
 
 **Download**<br>
 
@@ -182,6 +201,21 @@ python fslinstaller.py -f fsl-5.0.10-centos7_64.tar.gz -M -d /usr/local/fsl -q
 ----
 
 ## ANTsR
+
+R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc.
+
+ITK is an open-source software toolkit for performing registration and segmentation. Segmentation is the process of identifying and classifying data found in a digitally sampled representation. Typically, the sampled representation is an image acquired from such medical instrumentation as CT, MRI or ultrasound scanners. Registration is the task of aligning or developing correspondences between data. For example, in the medical environment, a CT scan may be aligned with a MRI scan in order to combine the information contained in both.
+ITKR provides R-based access to the Insight ToolKit (ITK) for medical image processing, registration and segmentation.
+
+The ANTS framework provides open-source functionality for deformable normalization with large deformations. Small deformation mappings and segmentation tools are also available.  Developer evaluation showed stronger differences with other methodology in neurodegenerative neuroimaging data, where large deformation is required. ANTs serves as both a base for further algorithm development and also as an application-oriented toolkit. ANTS enable diffeomorphic normalization with a variety of transformation models, optimal template construction, multiple types of diffeomorphisms, multivariate similarity metrics, diffusion tensor processing and warping, image segmentation with and without priors and measurement of cortical thickness from probabilistic segmentations. The normalization tools, alone, provide a near limitless range of functionality and allow the user to develop customized objective functions. Objective functions in ANTS are of the form:Deformation Cost+Data Terms, and the command line reflects this balance of two terms. As mentioned above, the data term may combine multiple different measures of similarity that are optimized in parallel, for instance, image similarity and landmark terms.
+
+A package providing core features for ANTsR.
+
+A package providing ANTs features in R as well as imaging-specific data representations, spatially regularized dimensionality reduction and segmentation tools。
+ANTsR interfaces state of the art image processing with R statistical methods. The project grew out of the need, at University of Pennsylvania, to develop large-scale analytics pipelines that track provenance from scanner to scientific study. ANTsR wraps an ANTs and ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses. Specialized functionality in ANTsR includes image segmentation and registration along imaging specific variations of principal component and canonical correlation analysis.
+A package providing ANTs features in R as well as imaging-specific data representations, spatially regularized dimensionality reduction and segmentation tools.
+
+Extends the ANTsR package with simple wrappers and complex processing streams for neuroimaging data.
 
 **Install ANTsR Command**<br>
 ```bash
