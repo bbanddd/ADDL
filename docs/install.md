@@ -16,7 +16,6 @@ The installation of this project is very easy, just source copy. But the third p
 * Neuroimaging processing tool set
   * FSL
   * ANTsR
-* Others
   * Nibabel
   * OpenCV
 
@@ -84,12 +83,12 @@ The TensorFlow official provides detail requiments, please check [here](https://
 
 ## GPU Venders Provided Tools
 
-### Driver
+### [Driver](http://www.nvidia.com/Download/index.aspx)
 Select the suitable driver base on your OS and GPU device from the NVIDIA driver download address(https://www.nvidia.com/drivers). The example GPU is **GeForce GTX 1080**. Specially, the native GPU driver of CentOS is Noveau, which is a third party open source driver for NVDIA cards, but poor support for the DL computation, so we need remove it before install the formal one. The following steps show the download and install detal process.
 
 **Download**<br>
 1. Manually find the drivers at [link](https://www.nvidia.com/drivers). Select the matching fields from the drop box listed below; click the "SEARCH" button.<br><br>
-   ![Figure of Download NVIDIA Driver](images/sc_install_driver1_en.png)
+![Figure of Download NVIDIA Driver](images/sc_install_driver1_en.png)
    <br><br>
 2. Click the "DOWNLOAD" button at the search result page.
 3. Click the "AGREE & DOWNLOAD" button downloading directly at the download confirmation page, or right click button for the download link.
@@ -121,7 +120,7 @@ lsmod | grep nvidia
 bash NVIDIA-Linux-x86_64-390.25.run --silent
 ```
 
-### CUDA
+### [CUDA](https://developer.nvidia.com/cuda-zone)
 Select the suitable CUDA version base on TenorFlow requiment, and select the suitable package base on the OS. The following steps show the download and install detail process.
 
 **Download**<br>
@@ -145,14 +144,14 @@ bash cuda_9.0.176.1_linux.run --silent --installdir=/usr/local/cuda --accept-eul
 bash cuda_9.0.176.2_linux.run --silent --installdir=/usr/local/cuda --accept-eula
 ```
 
-### cuDNN
+### [cuDNN](https://developer.nvidia.com/cudnn)
 The cuDNN is a CUDA library used for DL compuation, the installation process is a binary copy process, one should exactly select the version basing on your environment. The cuDNN download and installation detail process listed below.
 
 **Download**<br>
 1. Download cuDNN needs register as a NVIDIA Developer. Click "Join" button of the NVIDA developer [main page](https://developer.nvidia.com/) to finished the register process, if one is not assigned.
 2. Goto the cuDNN [download page](https://developer.nvidia.com/rdp/cudnn-download), and enable the check box of "cuDNN software license agreement".
 3. Select the cuDNN v7.0.5 for CUDA 9.0 as the TensorFlow requirement, and get the dropdown selections.<br><br>
-   ![Figure of cuDNN Download](images/sc_install_cudnn1_en.png)
+![Figure of cuDNN Download](images/sc_install_cudnn1_en.png)
    <br><br>
 4. Get the download link of the cuDNN package from the "cuDNN v7.0.5 Library for Linux" selection, the OS selection here.
 
@@ -169,7 +168,7 @@ tar xzvf cudnn-9.0-linux-x64-v7.tgz -C /usr/local
 
 ## Deep Learning Framework
 
-### Anaconda
+### [Anaconda](https://www.anaconda.com/)
 Anaconda is a freemium open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. Package versions are managed by the package management system conda.
 
 The project using Anaconda Python environment instead of CentOS7 native python environment to avoid OS dependency. And Anaconda Python2.7 is installed at a normal user account named python2.
@@ -194,7 +193,7 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/m
 conda config --set show_channel_urls yes
 ```
 
-### TensorFlow
+### [TensorFlow](https://www.tensorflow.org/)
 TensorFlow™ is an open source software library for high performance numerical computation. Its flexible architecture allows easy deployment of computation across a variety of platforms (CPUs, GPUs, TPUs), and from desktops to clusters of servers to mobile and edge devices. Originally developed by researchers and engineers from the Google Brain team within Google’s AI organization, it comes with strong support for machine learning and deep learning and the flexible numerical computation core is used across many other scientific domains.
 
 **Download**<br>
@@ -213,7 +212,7 @@ echo "export CUDA_HOME=\"/usr/local/cuda\"" >> $HOME/.bashrc
 source $HOME/.bashrc
 ```
 
-### TFLearn
+### [TFLearn](http://tflearn.org/)
 TFlearn is a modular and transparent deep learning library built on top of Tensorflow. It was designed to provide a higher-level API to TensorFlow in order to facilitate and speed-up experimentations, while remaining fully transparent and compatible with it. The PyPI/pip support TFLearn package installation.
 
 The project implements DL models with TFLearn.
@@ -224,7 +223,7 @@ pip install tflearn
 ```
 
 #### Set PyPI Mirror
-Please use your prefer PyPI mirror. For example setting mirror https://pypi.tuna.tsinghua.edu.cn/simple as the default PyPI mirror.
+Please use your prefer PyPI mirror. For example setting mirror `https://pypi.tuna.tsinghua.edu.cn/simple` as the default PyPI mirror.
 
 **Temporary Usage**<br>
 ```bash
@@ -241,14 +240,35 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ----
 
 # Neuroimaging Processing Tool Set
-The rapid progress of research in the neuroscience and neuroimaging fields has been accompanied by the development of many excellent analysis software tools. These are implemented in a variety of computer languages and programming environments.
+The rapid progress of research in the neuroscience and neuroimaging fields has been accompanied by the development of many excellent analysis software tools. These are implemented in a variety of computer languages and programming environments. This project take use of two packages FSL and ANTsR for brain extraction, registration and grey matter extraction.
 
 ----
 
-## FSL
+## [FSL](http://www.fmrib.ox.ac.uk/fsl/)
 FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data. It runs on Apple and PCs (both Linux, and Windows via a Virtual Machine), and is very easy to install. Most of the tools can be run both from the command line and as GUIs ("point-and-click" graphical user interfaces). To quote the relevant references for FSL tools you should look in the individual tools' manual pages.
 
+The FSL download and install is easy, that handle with a FSL install tool named `fslintaller.py`. But the FSL install package is more than 2G, we suffered install fail caused by download fail, so we suggest offline download first. The detail download and install process listed below.
+
 **Download**<br>
+1. Download the FSL install tool from url `https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py`.
+2. Get the FSL package url base on OS from FSL install tools.
+   1. Search the `download_file()` function defination in the `fslinstaller.py`, adding the print url code.
+```python
+def download_file(url, localf, timeout=20):
+    '''Get a file from the url given storing it in the local file specified'''
+    print url
+    try:
+        rf = open_url(url, 0, timeout)
+    except OpenUrlError, e:
+        raise DownloadFileError(str(e))
+```
+
+   2. Add get the url by the following command, and then Control-c.
+```bash
+python fslinstaller.py -o
+```
+
+The FSL package is `https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-5.0.10-centos7_64.tar.gz`.
 
 **Install FSL Command**<br>
 ```bash
@@ -257,24 +277,36 @@ python fslinstaller.py -f fsl-5.0.10-centos7_64.tar.gz -M -d /usr/local/fsl -q
 
 ----
 
-## ANTsR
-
-R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc.
-
-ITK is an open-source software toolkit for performing registration and segmentation. Segmentation is the process of identifying and classifying data found in a digitally sampled representation. Typically, the sampled representation is an image acquired from such medical instrumentation as CT, MRI or ultrasound scanners. Registration is the task of aligning or developing correspondences between data. For example, in the medical environment, a CT scan may be aligned with a MRI scan in order to combine the information contained in both.
-ITKR provides R-based access to the Insight ToolKit (ITK) for medical image processing, registration and segmentation.
-
-The ANTS framework provides open-source functionality for deformable normalization with large deformations. Small deformation mappings and segmentation tools are also available.  Developer evaluation showed stronger differences with other methodology in neurodegenerative neuroimaging data, where large deformation is required. ANTs serves as both a base for further algorithm development and also as an application-oriented toolkit. ANTS enable diffeomorphic normalization with a variety of transformation models, optimal template construction, multiple types of diffeomorphisms, multivariate similarity metrics, diffusion tensor processing and warping, image segmentation with and without priors and measurement of cortical thickness from probabilistic segmentations. The normalization tools, alone, provide a near limitless range of functionality and allow the user to develop customized objective functions. Objective functions in ANTS are of the form:Deformation Cost+Data Terms, and the command line reflects this balance of two terms. As mentioned above, the data term may combine multiple different measures of similarity that are optimized in parallel, for instance, image similarity and landmark terms.
-
-A package providing core features for ANTsR.
-
+## [ANTsR](https://github.com/ANTsX/ANTsR)
 A package providing ANTs features in R as well as imaging-specific data representations, spatially regularized dimensionality reduction and segmentation tools。
 ANTsR interfaces state of the art image processing with R statistical methods. The project grew out of the need, at University of Pennsylvania, to develop large-scale analytics pipelines that track provenance from scanner to scientific study. ANTsR wraps an ANTs and ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses. Specialized functionality in ANTsR includes image segmentation and registration along imaging specific variations of principal component and canonical correlation analysis.
 A package providing ANTs features in R as well as imaging-specific data representations, spatially regularized dimensionality reduction and segmentation tools.
 
-Extends the ANTsR package with simple wrappers and complex processing streams for neuroimaging data.
+### Components Introduction
+**[R](https://www.r-project.org)**<br>
+R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc.
 
-**Install ANTsR Command**<br>
+**[INK](https://itk.org)**<br>
+ITK is an open-source software toolkit for performing registration and segmentation. Segmentation is the process of identifying and classifying data found in a digitally sampled representation. Typically, the sampled representation is an image acquired from such medical instrumentation as CT, MRI or ultrasound scanners. Registration is the task of aligning or developing correspondences between data. For example, in the medical environment, a CT scan may be aligned with a MRI scan in order to combine the information contained in both.
+
+**[INKR](http://github.com/stnava/ITKR)**<br>
+ITKR provides R-based access to the Insight ToolKit (ITK) for medical image processing, registration and segmentation.
+
+**[ANTs](http://stnava.github.io/ANTs)**<br>
+The ANTS framework provides open-source functionality for deformable normalization with large deformations. Small deformation mappings and segmentation tools are also available.  Developer evaluation showed stronger differences with other methodology in neurodegenerative neuroimaging data, where large deformation is required. ANTs serves as both a base for further algorithm development and also as an application-oriented toolkit. ANTS enable diffeomorphic normalization with a variety of transformation models, optimal template construction, multiple types of diffeomorphisms, multivariate similarity metrics, diffusion tensor processing and warping, image segmentation with and without priors and measurement of cortical thickness from probabilistic segmentations. The normalization tools, alone, provide a near limitless range of functionality and allow the user to develop customized objective functions. Objective functions in ANTS are of the form: Deformation Cost + Data Terms, and the command line reflects this balance of two terms. As mentioned above, the data term may combine multiple different measures of similarity that are optimized in parallel, for instance, image similarity and landmark terms.
+
+**[ANTsRCore](https://github.com/ANTsX/ANTsRCore)**<br>
+A package providing core features for ANTsR.
+
+**[Extrantsr](https://github.com/muschellij2/extrantsr)**<br>
+Extrantsr extends the ANTsR package with simple wrappers and complex processing streams for neuroimaging data.
+
+The project implements brain extraction through Extrantsr.
+
+### Installation
+The ANTsR installation is a high cost process, which contains package download and source build process. Try to accelerator the process please choosing a CPAN mirror nearly, and assign more threads for the build process. The Extrantsr contains ANTsR install process.
+
+**Install Extrantsr Commands**<br>
 ```bash
 # Install R
 yum install -y epel-release
@@ -308,11 +340,15 @@ install.package("devtools",    repos="https://mirrors.ustc.edu.cn/CRAN", depende
 devtools::install_github("muschellij2/extrantsr")
 ```
 
-**Find CRAN Mirror Tips**<br>
+**[CRAN](https://cran.r-project.org)**<br>
+CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. Please use the CRAN mirror(`https://cran.r-project.org/mirrors.html`) nearest to you to minimize network load.
 
 ----
 
-## Nibabel
+## [Nibabel](http://nipy.org/nibabel/)
+This package provides read/write access to some common medical and neuroimaging file formats, including: ANALYZE (plain, SPM99, SPM2 and later), GIFTI, NIfTI1, NIfTI2, MINC1, MINC2, MGH and ECAT as well as Philips PAR/REC. We can read and write FreeSurfer geometry, annotation and morphometry files. There is some very limited support for DICOM. NiBabel is the successor of PyNIfTI.
+
+This project taking use of Nibabel for neuroimaging to image data transfer.
 
 **Install nibabel Command**<br>
 ```bash
@@ -321,7 +357,10 @@ pip install nibabel
 
 ----
 
-## OpenCV
+## [OpenCV](https://opencv.org/)
+OpenCV (Open Source Computer Vision Library) is released under a BSD license and hence it’s free for both academic and commercial use. It has C++, Python and Java interfaces and supports Windows, Linux, Mac OS, iOS and Android. OpenCV was designed for computational efficiency and with a strong focus on real-time applications. Written in optimized C/C++, the library can take advantage of multi-core processing. Enabled with OpenCL, it can take advantage of the hardware acceleration of the underlying heterogeneous compute platform.
+
+This project taking use of OpenCV for image processing.
 
 **Install opencv-python Command**<br>
 ```bash
