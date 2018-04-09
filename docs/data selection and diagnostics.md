@@ -103,7 +103,47 @@ else:
 This strategy has a common N in different data selections. Although not all data selections achieve the best overall accuracy under this N, all get better performance than baseline strategy.
 
 # Results
-**Default**<br>
+**Default subject level test results**<br>
+
+||Data Selection 1|Data Selection 2|Data Selection 3|Data Selection 4|Data Selection 5|
+|:----:|:----:|:----:|:----:|:----:|:----:|
+|P|122|107|107|69|53|
+|N|145|116|77|41|35|
+|TP|90|81|93|67|53|
+|TN|130|105|67|31|24|
+|FP|15|11|10|10|11|
+|FN|32|26|14|2|0|
+|TPR|73.77%|75.70%|86.92%|97.10%|100.00%|
+|TNR|89.66%|90.52%|87.01%|75.61%|68.57%|
+|FPR|10.34%|9.48%|12.99%|24.39%|31.43%|
+|FNR|26.23%|24.30%|13.08%|2.90%|0.00%|
+|ACC|82.40%|83.41%|86.96%|89.09%|87.50%|
+
+The rows means list:
+* *P* positive samples
+* *N* negative samples
+* *TP* true positive
+* *TN* true negative
+* *FP* false positive
+* *FN* false negative
+* *TPR* true positive rate
+* *TRN* true negative rate (SPC)
+* *FPR* false positive rate
+* *FNR* false negative rate
+* *ACC* accuracy
 
 
-**example**<br>
+**subject level test results, strategy variation, N = 32**<br>
+
+||1|2|3|4|5|
+|:----:|:----:|:----:|:----:|:----:|:----:|
+|TPR|77.87%|74.77%|83.18%|98.55%|96.23%|
+|TNR|95.17%|95.69%|94.81%|87.80%|94.29%|
+|FPR|4.83%|4.31%|5.19%|12.20%|5.71%|
+|FNR|22.13%|25.23%|16.82%|1.45%|3.77%|
+|ACC|87.27%|85.65%|88.04%|94.55%|95.45%|
+
+# Conclusions
+1.	Overall accuracy increases if training set has more AD data than NL. For example, data selection 3 AD/NL = 1.43, data selection 4 AD/NL = 1.58. (One possible reason is that the information for classifying the image as AD occupies only a little part of the image.) This is observed in ADNI 1.5T dataset, further verification is needed to verify other datasets.
+1.	Performance increases when making use of some medical knowledge.
+1.	The results of dataset 4 and 5 are for reference, it is possible that their results are not reliable due to small amount of data.
