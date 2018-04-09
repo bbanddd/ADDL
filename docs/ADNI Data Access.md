@@ -1,6 +1,4 @@
-# [ADNI](http://adni.loni.usc.edu/)
-
-## ADNI Data Access
+# [ADNI Data Access](http://adni.loni.usc.edu/)
 **Registration**<br>
 1. Go to ADNI ["Access Data"](http://adni.loni.usc.edu/data-samples/access-data/) page. <br><br>
 ![Figure of Access ADNI](images/sc_adni_access1_en.png)<br><br>
@@ -25,7 +23,7 @@ The Image collections list:
 
 ----
 
-## Study Information
+# Study Information
 The `ADNI 1.5Y MRI Standardized Lists` contains all the five image collections information, and a piece of table are shown below.
 
 |RID|Image.ID|PTID|Screen.Diagnosis|Visit|Scan.Date|Sequence|Study.ID|Series.ID|
@@ -36,5 +34,3 @@ The `ADNI 1.5Y MRI Standardized Lists` contains all the five image collections i
 The `Screen.Diagnosis` shows the diagnosis result of each image. This project focus on `NL` and `AD` subjects images, the `MCI` is not involved in this project. The `Screen.Diagnosis` column is the data label of DL module. The `Sequence` shows the ADNI image corrections operations. Please check ["MRI Pre-processing"](http://adni.loni.usc.edu/methods/mri-analysis/mri-pre-processing/) page for the detail information, it impacts the following pre-processing project pipeline.
 
 The `Key ADNI tables merged into one table` contains all the key information of ADNI, it is used for grouping of subjects data. Example, the study focuses on pure NL and AD subjects, the subjects who changed for NL to AD are not involved in the project, it needs `Key ADNI tables merged into one table` to trace the subject' history diagnosis.
-
-----
