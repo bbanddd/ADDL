@@ -139,6 +139,8 @@ else:
 
 This strategy has a common N in different data selections. Although not all data selections achieve the best overall accuracy under this N, all get better performance than baseline strategy.
 
+----
+
 # Results
 **Default subject level test results**<br>
 
@@ -179,6 +181,8 @@ The rows means list:
 |FPR|4.83%|4.31%|5.19%|12.20%|5.71%|
 |FNR|22.13%|25.23%|16.82%|1.45%|3.77%|
 |ACC|87.27%|85.65%|88.04%|94.55%|95.45%|
+
+----
 
 # Conclusions
 1.	Overall accuracy increases if training set has more AD data than NL. For example, data selection 3 AD/NL = 1.43, data selection 4 AD/NL = 1.58. (One possible reason is that the information for classifying the image as AD occupies only a little part of the image.) This is observed in ADNI 1.5T dataset, further verification is needed to verify other datasets.
