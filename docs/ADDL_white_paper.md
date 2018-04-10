@@ -43,7 +43,7 @@ The preprocessing stage get GM tissue images from ADNI MRI T1 data. We use [FSL-
 
 ![Figure of Preprocessing Flow](images/sc_wp_preprocess_flow_en.png)
 
-The figure above shows the FSL-VBM work flow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) name.
+The figure above shows the FSL-VBM work flow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) file name.
 
 Please refer to [ADDL basic](ADDL_basic.md#toc3.6.2) document for the MNI-152 standard template information. This project uses MNI-152 template from the FSL package.
 
@@ -51,32 +51,43 @@ Please refer to [ADDL basic](ADDL_basic.md#toc3.6.2) document for the MNI-152 st
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.1">2.1 Brain Extraction</a>
+The brain extraction get the brain tissue data from ADNI MRI full brain data, it is a necessary process for the following GM segmentation.
 
-This is a fully automated procedure to remove scalp tissue, skull, and dural venous sinus voxels. This procedure initially involves segmentation of the original structural MR images (in native space) into grey and white matter images, followed by a series of fully automated morphological operations for removing unconnected non-brain voxels from the segmented images (erosion followed by conditional dilation). The resulting images are extracted grey and white matter partitions in native space.
+We use [`abpBrainExtraction`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/abpBrainExtraction) of ANTsR as the brain extraction tool, and the [`abpN4`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/abpN4) is not involved for outlier intensities truncate and bais corrects, because ADNI standard MRI T1 sequence contains [N3 correction](http://adni.loni.usc.edu/methods/mri-analysis/mri-pre-processing/). Note that we ignore the N3 and N4 difference here.
+
+The brain extraction process, first, the MNI-152 template brain mask register to all the ADNI MRI data with affine and non-linear spatial transformation(FMM), and then get the brain with the matching brain mask registered.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.2">2.2 Grey Matter Segmentation</a>
-Scans were then segmented into grey matter, white matter, CSF, and other nonbrain partitions. SPM segmentation employs a mixture model cluster analysis to identify voxel intensities matching particular tissue types (grey matter, white matter and CSF) combined with an a priori knowledge of the spatial distribution of these tissues in normal subjects, derived from probability maps. The segmentation step also incorporates an image intensity nonuniformity correction (Ashburner and Friston, 2000) to address image intensity variations caused by different positions of cranial structures within the MRI head coil.
+After the brain extraction stage, the GM segmentation stage get all the ADNI subjects GM tissues data in native space, which is the start point of following GM registration process.
 
-Scans were then segmented into grey matter, white matter, CSF, and other nonbrain partitions. SPM segmentation employs a mixture model cluster analysis to identify voxel intensities matching particular tissue types (grey matter, white matter and CSF) combined with an a priori knowledge of the spatial distribution of these tissues in normal subjects, derived from probability maps. The segmentation step also incorporates an image intensity nonuniformity correction (Ashburner and Friston, 2000) to address image intensity variations caused by different positions of cranial structures within the MRI head coil.
+We use [`FAST`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FAST) of FSL package as the GM segmentation tool.
+
+>FAST (FMRIB's Automated Segmentation Tool) segments a 3D image of the brain into different tissue types (Grey Matter, White Matter, CSF, etc.), whilst also correcting for spatial intensity variations (also known as bias field or RF inhomogeneities). The underlying method is based on a hidden Markov random field model and an associated Expectation-Maximization algorithm. The whole process is fully automated and can also produce a bias field-corrected input image and a probabilistic and/or partial volume tissue segmentation. It is robust and reliable, compared to most finite mixture model-based methods, which are sensitive to noise.
+>
+><p align='right'>-- FAST Research Overview</p>
+
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.3">2.3 Template Creation</a>
-First, an anatomical template was created from a subgroup of all normal subjects with a mean age and age range matched to the entire study group imaged on the same MRI scanner with the same scanning parameters, in order to reduce any scanner-specific bias and provide a template appropriate to the population sample. This involves spatially normalizing each structural MRI to the ICBM-152 template (Montreal Neurological Institute), which is derived from 152 normal subjects and approximates the Talairach space. The normalized data are then smoothed with an 8-mm full-width at half-maximum (FWHM) isotropic Gaussian kernel, and a mean image (the template) is created.
+Template creation get a study group specify GM template from all the subjects GM data, which is used for all the subjects GM registration.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.1">2.3.1 Affine Registration</a>
+Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the affine registration detail. The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of fsl as the affine registration tools at this stage.
+
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.2">2.3.2 Non-Linear Registration</a>
+Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the non-linear registration detail. The project uses [`ants_regwrite`](https://rdrr.io/github/neuroconductor/extrantsr/man/ants_regwrite.html) of extrantsr as the non-linear registration tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -87,6 +98,11 @@ First, an anatomical template was created from a subgroup of all normal subjects
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.4">2.4 Non-Linear Registration</a>
+This non-linear registration stage perform spatial normalization for all ADNI study group subjects' GM data base on the study group template generated at [section 2.4]().
+
+Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the non-linear registration detail.
+
+The project uses [`antsRegistration`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/antsRegistration) of ANTsR as the non-linear registration tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -94,11 +110,15 @@ First, an anatomical template was created from a subgroup of all normal subjects
 ## <a id="toc2.5">2.5 Modulation</a>
 As a result of nonlinear spatial normalization, the volumes of certain brain regions may grow, whereas others may shrink. In order to preserve the volume of a particular tissue (grey or white matter or CSF) within a voxel, a further processing step is incorporated. This involves multiplying (or modulating) voxel values in the segmented images by the Jacobian determinants derived from the spatial normalization step. In effect, an analysis of modulated data tests for regional differences in the absolute amount (volume) of grey matter, whereas analysis of unmodulated data tests for regional differences in concentration of grey matter (per unit volume in native space) (Ashburner and Friston, 2000).
 
+The project use [`createJacobianDeterminantImage`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/createJacobianDeterminantImage) of AntsR as the modulation tool at this stage.
+
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.6">2.6 Smooth</a>
-The normalized, segmented images are smoothed using a 12-mm FWHM isotropic Gaussian kernel. This conditions the data to conform more closely to the Gaussian field model underlying the statistical procedures used for making inferences about regionally specific effects. Smoothing also has the effect of rendering the data more normally distributed (by the central limit theorem). The intensity in each voxel of the smoothed data is a locally weighted average of grey matter density from a region of surrounding voxels, the size of the region being defined by the size of the smoothing kernel (Ashburner and Friston, 2000).
+The normalized, segmented images are smoothed using a 3-mm FWHM isotropic Gaussian kernel. This conditions the data to conform more closely to the Gaussian field model underlying the statistical procedures used for making inferences about regionally specific effects. Smoothing also has the effect of rendering the data more normally distributed (by the central limit theorem). The intensity in each voxel of the smoothed data is a locally weighted average of grey matter density from a region of surrounding voxels, the size of the region being defined by the size of the smoothing kernel (Ashburner and Friston, 2000).
+
+The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands/) of FSL as the smooth tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -141,3 +161,5 @@ The output of ResNet module of the diagnostic process are a vector of labels, wh
 \[13\] <a id="r13">[Guorong Wu, Unsupervised Deep Feature Learning for Deformable Registration of MR Brain Images, Med Image Comput Comput Assist Interv. 2013 ; 16(0 2): 649–656., 2014]()</a><br>
 \[14\] <a id="r14">[Hiba A. Mohammed, The Image Registration Techniques for Medical Imaging (MRI-CT), doi:10.5923/j.ajbe.20160602.02, 2016]()</a><br>
 \[15\] <a id="r15">[Hajnal, J. V., Hawkes, D. J., & Hill, D. L. (2001). Medical Image Registration. CRC Press.]()</a><br>
+
+Zhang, Y. and Brady, M. and Smith, S. Segmentation of brain MR images through a hidden Markov random field model and the expectation-maximization algorithm. IEEE Trans Med Imag, 20(1):45-57, 2001.
