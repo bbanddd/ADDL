@@ -4,24 +4,17 @@
 ----
 
 # <a id="top_intr_en">ADDL</a>
-ADDL is an open source project, applies deep learning(DL) techniques on the brain MRI data for the Alzheimer's disease(AD) diagnostic.
 
-----
+ADDL is an open source project, applies deep learning(DL) techniques on the brain MRI data for the Alzheimer's disease(AD) diagnostic.
 
 ## [ADDL Installation](docs/install.md)
  Because the ADDL project wraps plenty of 3rd party tools and works as a script, the installation of ADNI is very easy, just source copy. But the 3rd party tools setting up cost a lot. Please refer to the [install](docs/install.md) for the detail information.
 
-----
-
 ## [ADNI Access](docs/ADNI data access.md)
 The ADDL study requires plenty of AD MRI data, we get it from the ADNI database. Please check the [ADNI access](docs/ADNI data access.md) for the detail information.
 
-----
-
 ## [ADDL White Paper](docs/ADDL white paper.md)
 The ADDL project bases on structural MRI (T1, 2017) data of Alzheimer's disease(AD) and non-Alzheimer's disease(NL) subjects of ADNI. It takes ResNet DL module to learn the brain gray matter(GM) tissue images obtained through preprocessing, and applies diagnostic algorithm on the ResNet module inference results for the AD diagnostic. The detail ADDL pipeline information please refer to [ADDL white paper](docs/ADDL white paper.md).
-
-----
 
 ## [ADDL Study](docs/data selection and diagnostics.md)
 Try to get higher AD diagnostic precision, we group the ADNI MRI data into several study groups, designed different diagnostic methodology, and apply ADDL pipeline. Specially, we get about 95% AD diagnostic precision. Please get the detail information from [ADDL study document](docs/data selection and diagnostics.md).
