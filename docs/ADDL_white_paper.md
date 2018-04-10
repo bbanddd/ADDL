@@ -39,9 +39,9 @@ The preprocessing stage get GM tissue images from ADNI MRI T1 data. We use [FSL-
 
 >"Structural data was analysed with FSL-VBM (Douaud et al., 2007, http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLVBM), an optimised VBM protocol (Good et al., 2001) carried out with FSL tools (Smith et al., 2004). First, structural images were brain-extracted and grey matter-segmented before being registered to the MNI 152 standard space using non-linear registration (Andersson et al., 2007). The resulting images were averaged and flipped along the x-axis to create a left-right symmetric, study-specific grey matter template. Second, all native grey matter images were non-linearly registered to this study-specific template and "modulated" to correct for local expansion (or contraction) due to the non-linear component of the spatial transformation. The modulated grey matter images were then smoothed with an isotropic Gaussian kernel with a sigma of ?? mm. Finally, voxelwise GLM was applied using permutation-based non-parametric testing, correcting for multiple comparisons across space."
 >
-><p align='center'>-- Referencing FSL-VBM</p>
+><p align='right'>-- Referencing FSL-VBM</p>
 
-<p align='right'>**Figure of Preprocessing Flow**</p>
+<p align='center'>**Figure of Preprocessing Flow**</p>
 
 ![Figure of Preprocessing Flow](images/sc_wp_preprocess_flow_en.png)
 
