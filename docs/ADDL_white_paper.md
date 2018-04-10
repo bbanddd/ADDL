@@ -41,16 +41,17 @@ The preprocessing stage get GM tissue images from ADNI MRI T1 data. We use [FSL-
 >
 ><p align='right'>-- Referencing FSL-VBM</p>
 
-<p align='center'>**Figure of Preprocessing Flow**</p>
-
 ![Figure of Preprocessing Flow](images/sc_wp_preprocess_flow_en.png)
 
-The figure above shows the FSL-VBM work flow detail. The index of process match with the preprocess [sources](../src/1.DataPreprocessing).
+The figure above shows the FSL-VBM work flow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) name.
+
+Please refer to [ADDL basic](ADDL_basic.md#toc3.6.2) document for the MNI-152 standard template information. This project uses MNI-152 template from the FSL package.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.1">2.1 Brain Extraction</a>
+
 This is a fully automated procedure to remove scalp tissue, skull, and dural venous sinus voxels. This procedure initially involves segmentation of the original structural MR images (in native space) into grey and white matter images, followed by a series of fully automated morphological operations for removing unconnected non-brain voxels from the segmented images (erosion followed by conditional dilation). The resulting images are extracted grey and white matter partitions in native space.
 
 ----
