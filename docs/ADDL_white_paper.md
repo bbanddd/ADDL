@@ -181,4 +181,3 @@ The output of ResNet module of the inference process is the AD/NL classification
 \[5\] <a id="r5">[Zhang, Y. and Brady, M. and Smith, S., Segmentation of brain MR images through a hidden Markov random field model and the expectation-maximization algorithm, IEEE Trans Med Imag, 20(1):45-57, 2001](http://www.csd.uwo.ca/~olga/Courses/Fall2014/CS9840/PossibleStudentPapers/Zhang2001.pdf)</a><br>
 \[6\] <a id="r6">[John Ashburner and Karl J. Friston, Voxel-Based Morphometry—The Methods, doi:10.1006/nimg.2000.0582, 2000](http://www.fil.ion.ucl.ac.uk/spm/doc/papers/john_vbm_methods.pdf)</a><br>
 \[7\] <a id="r7">[Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun, Deep Residual Learning for Image Recognition, arXiv:1512.03385, 2015](https://arxiv.org/abs/1512.03385)</a><br>
-\[x\] <a id="rx">[]()</a><br>
