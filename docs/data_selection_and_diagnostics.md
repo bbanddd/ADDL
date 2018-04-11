@@ -1,3 +1,6 @@
+# Introduction
+Try to get higher AD diagnostic precision, we group the ADNI MRI data into several study groups, designed different diagnostic methodology, and apply ADDL pipeline. Specially, we get about 95% AD diagnostic precision.
+
 # Data Selection
 The data selection groups ADNI data into several study groups, which helps find the AD features by crossing comparing AD diagnostic results of study groups. Base on different methodologies, we groups the ADNI data into following five groups.
 1. `ADNI_1.5T_All_AD_NL`

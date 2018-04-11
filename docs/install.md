@@ -365,12 +365,26 @@ pip install opencv-python
 
 ----
 
-# All in One
-To simplify the 3rd party tools setup process, we integrate all the process in one script, and it required pre-download some packages. The packages are listed below.
-1. [fslinstaller.py]()
-1. [fsl-5.0.10-centos7_64.tar.gz]()
-1. [ITKR_0.4.12_R_x86_64-pc-linux-gnu.tar.gz]()
-1. [ANTsR_0.6_R_x86_64-pc-linux-gnu.tar.gz]()
-1. [ANTsRCore_0.4.2.1_R_x86_64-pc-linux-gnu.tar.gz]()
-1. []()
-1. []()
+# All in One Script
+To simplify the 3rd party tools setup process, we integrate all the process in one script [`setup_env.sh`](../tools/setup_env/setup_env.sh), and it requires pre-download some packages at `$ADDLROOT/tools/setup_env/pkg/`. And the packages are listed below.
+1. [NVIDIA-Linux-x86_64-390.25.run](http://us.download.nvidia.com/XFree86/Linux-x86_64/390.25/NVIDIA-Linux-x86_64-390.25.run)
+1. [cuda_9.0.176_384.81_linux.run](https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run)
+1. [cuda_9.0.176.1_linux.run](https://developer.nvidia.com/compute/cuda/9.0/Prod/patches/1/cuda_9.0.176.1_linux-run)
+1. [cuda_9.0.176.2_linux.run](https://developer.nvidia.com/compute/cuda/9.0/Prod/patches/2/cuda_9.0.176.2_linux-run)
+1. [cudnn-9.0-linux-x64-v7.tgz](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.0_20171129/cudnn-9.0-linux-x64-v7)
+1. [Anaconda2-5.1.0-Linux-x86_64.sh](https://repo.continuum.io/archive/Anaconda2-5.1.0-Linux-x86_64.sh)
+1. [tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl](https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl)
+1. [fslinstaller.py](https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py)
+1. [fsl-5.0.10-centos7_64.tar.gz](https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-5.0.10-centos7_64.tar.gz)
+1. [ITKR_0.4.12_R_x86_64-pc-linux-gnu.tar.gz](https://github.com/stnava/ITKR/releases/download/latest/ITKR_0.4.12_R_x86_64-pc-linux-gnu.tar.gz)
+1. [ANTsRCore_0.4.2.1_R_x86_64-pc-linux-gnu.tar.gz](https://github.com/ANTsX/ANTsRCore/releases/download/v0.4.2.1/ANTsRCore_0.4.2.1_R_x86_64-pc-linux-gnu.tar.gz)
+1. [ANTsR_0.6_R_x86_64-pc-linux-gnu.tar.gz](https://github.com/ANTsX/ANTsR/releases/download/latest/ANTsR_0.6_R_x86_64-pc-linux-gnu.tar.gz)
+
+**Instell Command**<br>
+1. Go to the `$ADDLROOT/tools/setup_env` folder.
+1. Launch the install script with root, there is a reboot process for the GPU driver update.
+```bash
+sudo bash setup_env.sh
+```
+
+Note: if some packages download slowly and cause install process fail, please update the package mirror according this document.

@@ -28,7 +28,6 @@
       1. [Optimization of Maximizing Posterior Probability](#toc4.3)
          1. [Atropos](#toc4.3.1)
          1. [HMRF-EM](#toc4.3.2)
-   1. [Deep Learning Suits](#toc5)
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -335,9 +334,3 @@ EM will iterate toward a local maximum. We track convergence by summing up the m
 
 #### <a id="toc4.3.2">4.3.2 HMRF-EM</a>
 To fit the HMRF model, an EM algorithm is used. We show that by incorporating both the HMRF model and the EM algorithm into a HMRF-EM framework, an accurate and robust segmentation can be achieved. The Atropos borrowed most detail above, which refer to Zhang 2001. The FAST package is the algorithm implementation.
-
-----
-[<p align='right'>*Back to Content*</p>](#toc_content)
-
-## <a id="toc5">5 Deep Learning Suits</a>
-TBD
