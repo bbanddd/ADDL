@@ -22,20 +22,15 @@
 # <a id="toc1">1. ADDL Introduction</a>
 The ADDL project bases on structural MRI (T1, 2017) data of Alzheimer's disease(AD) and non-Alzheimer's disease(NL) subjects of ADNI. It takes ResNet DL module to learn the brain gray matter(GM) tissue images obtained through preprocessing, and applies diagnostic algorithm on the ResNet module inference results for the AD diagnostic.
 
-Try to get higher AD diagnostic precision, we group the ADNI MRI data into several study groups and apply ADDL pipeline.  As a result we get about 95% AD diagnostic precision.
+![Figure of ADDL Pipeline](images/sc_wp_addl_flow_en.png)
 
-![](images/sc_wp_addl_flow_en.png)
-
-The ADDL pipeline contains four processes, preprocessing, image format transform, training and inference. The preprocessing , the structural MRI (T1) data of all the subjects in the study group were segmented and registered to obtain the gray matter image.
- The grouping process divides the subjects in the study group into a training set and a validation set. The training process is to input training set data into ResNet model training. In the diagnosis process, the gray matter image of a subject in the test group is input into the trained ResNet model, and a diagnostic algorithm is applied to determine whether the subject suffers from Alzheimer's disease.
-
-This chapter introduces the algorithms used in ADDL from five aspects: ADNI subjects, preprocessing, grouping, ResNet model, and diagnostic algorithm.
+The ADDL pipeline above shows the project workflow, it contains four processes, preprocessing, format transfer, training and inference. The preprocessing extract GM from ADNI MRI T1 data, and handle GM registration cross study group. The format transfer process changes the data format from NIFTI to PNG and parts all the PNG data into two sets train and validation. The training process packages the train set PNG and the matching labels(AD/NL) into binary, feeds binary into ResNet module for training, and get the ResNet module parameters till the network convergence. The inference process packages the validation set PNG by subject into binary, feeds the binary into trained ResNet module, and get the AD diagnostic result base on the diagnostic algorithm.   
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc2">2. Preprocessing</a>
-The preprocessing stage get GM tissue images from ADNI MRI T1 data. We use [FSL-VBM](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLVBM) as the  preprocess tool, and replace several component tools with [ANTsR]().
+The preprocessing stage get GM tissue from ADNI MRI T1 data. We use [FSL-VBM](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLVBM) as the  preprocess tool, and replace several component tools with [ANTsR](https://github.com/ANTsX/ANTsR).
 
 >"Structural data was analysed with FSL-VBM (Douaud et al., 2007, http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLVBM), an optimised VBM protocol (Good et al., 2001) carried out with FSL tools (Smith et al., 2004). First, structural images were brain-extracted and grey matter-segmented before being registered to the MNI 152 standard space using non-linear registration (Andersson et al., 2007). The resulting images were averaged and flipped along the x-axis to create a left-right symmetric, study-specific grey matter template. Second, all native grey matter images were non-linearly registered to this study-specific template and "modulated" to correct for local expansion (or contraction) due to the non-linear component of the spatial transformation. The modulated grey matter images were then smoothed with an isotropic Gaussian kernel with a sigma of ?? mm. Finally, voxelwise GLM was applied using permutation-based non-parametric testing, correcting for multiple comparisons across space."
 >
@@ -51,17 +46,17 @@ Please refer to [ADDL basic](ADDL_basic.md#toc3.6.2) document for the MNI-152 st
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.1">2.1 Brain Extraction</a>
-The brain extraction get the brain tissue data from ADNI MRI full brain data, it is a necessary process for the following GM segmentation.
+The brain extraction get the brain tissue from ADNI MRI full brain data, it is a necessary process for the following GM segmentation for the better segmentation result.
 
 We use [`abpBrainExtraction`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/abpBrainExtraction) of ANTsR as the brain extraction tool, and the [`abpN4`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/abpN4) is not involved for outlier intensities truncate and bais corrects, because ADNI standard MRI T1 sequence contains [N3 correction](http://adni.loni.usc.edu/methods/mri-analysis/mri-pre-processing/). Note that we ignore the N3 and N4 difference here.
 
-The brain extraction process, first, the MNI-152 template brain mask register to all the ADNI MRI data with affine and non-linear spatial transformation(FMM), and then get the brain with the matching brain mask registered.
+The brain mask of MNI-152 template register to all the ADNI MRI data with affine and non-linear spatial transformation(FMM), and then get the brain with the matching brain mask registered.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.2">2.2 Grey Matter Segmentation</a>
-After the brain extraction stage, the GM segmentation stage get all the ADNI subjects GM tissues data in native space, which is the start point of following GM registration process.
+After the brain extraction stage, the GM segmentation stage get all the ADNI subjects GM tissues data in native space, which is the start point of following GM registration processes.
 
 We use [`FAST`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FAST) of FSL package as the GM segmentation tool.
 
@@ -69,30 +64,35 @@ We use [`FAST`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FAST) of FSL package as t
 >
 ><p align='right'>-- FAST Research Overview</p>
 
-
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.3">2.3 Template Creation</a>
-Template creation get a study group specify GM template from all the subjects GM data, which is used for all the subjects GM registration.
+Template creation get a study group specify GM template from all the subjects GM data, which is used for all the subjects GM registration. It applies affine registration for all the study group GM data base on MNI152, and get a template named MNI152-ADI affine. And then it applies non-linear registration for all the study group GM data base on MNI152-ADNI affine template, and get the result template for the following GM registration process.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.1">2.3.1 Affine Registration</a>
-Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the affine registration detail. The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of fsl as the affine registration tools at this stage.
+Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the affine registration detail.
 
+The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of FSL as the affine registration tools at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.2">2.3.2 Non-Linear Registration</a>
-Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the non-linear registration detail. The project uses [`ants_regwrite`](https://rdrr.io/github/neuroconductor/extrantsr/man/ants_regwrite.html) of extrantsr as the non-linear registration tool at this stage.
+Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the non-linear registration detail.
+
+The project uses [`ants_regwrite`](https://rdrr.io/github/neuroconductor/extrantsr/man/ants_regwrite.html) of extrantsr as the non-linear registration tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.4">2.3.4 Template Generation</a>
+The template generation get a template for the study group, it contains the average and left-right mirror operations. The average makes the template contains all the subjects of study group information, and the left-right mirror is from the brain left-right symmetric.
+
+The project use [`fslmerge`](), [`fslmaths`]() and [`fslswapdim`]() of FSL for the template generation tools.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -124,11 +124,27 @@ The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc3">3. Format Transform</a>
+The formation transform or NIFTI2PNG process services for the DL module.
+
+![Figure of Format Transform]()
+
+**Normalization**<br>
+The data normalization operation is involved for the DL module, which helps accelerate the DL module convergent.
+
+**3D-2D Format Transfer**<br>
+The DL module expect 2D images data, so this stage changes the ADNI MRI format NIFTI to PNG, which changes a 3D imaging data into several 2D images along the Z axle.
+
+**Selection**<br>
+ After the GM segmentation and registration of preprocessing process, there are some blank images in the top and bottom area, we remove all the blank images at the same Z axle location for all the subject images.
+
+**Training and Validation Group**<br>
+Note the training and validation groups requires for the DL module. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc4">4. Package Binary</a>
+The package binary process services for the DL module more detail. It resizes the PNG resolution according the DL module, 32x32 in the project. It packages the PNG data with label for the DL module train process, packages the PNG data by subjects for the DL module inference process. It saves the PNG data in the Python object efficient way because the DL module is a Python script too.   
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -136,11 +152,50 @@ The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands
 # <a id="toc5">5. ResNet</a>
 TBD: Introduction the detail of resnet module.
 
+```python
+# Residual blocks
+# 32 layers: n=5, 56 layers: n=9, 110 layers: n=18
+n = 5
+
+# Building Residual Network
+net = tflearn.input_data(shape=[None, 32, 32, 1],
+                         data_preprocessing=img_prep,
+                         data_augmentation=img_aug)
+net = tflearn.conv_2d(net, 16, 3, regularizer='L2', weight_decay=0.0001)
+net = tflearn.residual_block(net, n, 16)
+net = tflearn.residual_block(net, 1, 32, downsample=True)
+net = tflearn.residual_block(net, n-1, 32)
+net = tflearn.residual_block(net, 1, 64, downsample=True)
+net = tflearn.residual_block(net, n-1, 64)
+net = tflearn.batch_normalization(net)
+net = tflearn.activation(net, 'relu')
+net = tflearn.global_avg_pool(net)
+
+net = tflearn.fully_connected(net, 2)
+net = tflearn.batch_normalization(net)
+net = tflearn.activation(net, 'softmax')
+
+# Regression
+mom = tflearn.Momentum(0.1, lr_decay=0.1, decay_step=32000, staircase=True)
+net = tflearn.regression(net, optimizer=mom,
+                         loss='categorical_crossentropy')
+# Training
+model = tflearn.DNN(net, tensorboard_verbose=tensorboardVerbose, tensorboard_dir=tensorboardDir,
+  checkpoint_path=checkpointPath)
+
+model.fit(X, Y, n_epoch=nEpoch, shuffle=True, validation_set=(X_test, Y_test),
+  show_metric=True, batch_size=batchSize, run_id=runId, snapshot_epoch=True)
+```
+
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc6">6. Diagnostic Algorithm</a>
 The output of ResNet module of the diagnostic process are a vector of labels, which reflect the AD predication values of images along the Z axon. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic.
+
+
+
+
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
