@@ -148,7 +148,7 @@ The [`nibabel`](http://nipy.org/nibabel/) is used for NIFTI to PNG transform.
 ### <a id="toc3.4">3.4 Training and Validation Group</a>
 The training and validation groups requires for the DL module. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
 
-For each study group, we separate the training and validation groups manually into list, the [ADDL Study](docs/data_selection_and_diagnostics.md) contains the train and validation groups information.
+For each study group, we separate the training and validation groups manually into list, the [ADDL Study](data_selection_and_diagnostics.md) contains the train and validation groups information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -168,7 +168,7 @@ The project is using [TFLearn](http://tflearn.org/) for DL module implementation
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc6">6. Diagnostic Algorithm</a>
-The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](data_selection_and_diagnostics.md) for the detail information.
+The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](data_selection_and_diagnostics.md#diagnostics) for the detail information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
