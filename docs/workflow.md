@@ -44,7 +44,7 @@ The preprocessing stage gets GM from ADNI MRI T1 data. We use [FSL-VBM](http://f
 
 The figure above shows the FSL-VBM work flow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) file name.
 
-Please refer to [ADDL basic](ADDL_basic.md#toc3.6.2) document for the MNI-152 standard template information. This project uses MNI-152 template from the FSL package.
+Please refer to [ADDL basic](basic.md#toc3.6.2) document for the MNI-152 standard template information. This project uses MNI-152 template from the FSL package.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -78,7 +78,7 @@ Template creation gets a study group specify GM template from all the subjects G
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.1">2.3.1 Affine Registration</a>
-Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the affine registration detail.
+Please check the [ADNI basic](basic.md#toc3.3) for the affine registration detail.
 
 The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of FSL as the affine registration tools at this stage.
 
@@ -86,7 +86,7 @@ The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of FSL a
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.2">2.3.2 Non-Linear Registration</a>
-Please check the [ADNI basic](ADDL_basic.md#toc3.3) for the non-linear registration detail.
+Please check the [ADNI basic](basic.md#toc3.3) for the non-linear registration detail.
 
 The project uses [`ants_regwrite`](https://rdrr.io/github/neuroconductor/extrantsr/man/ants_regwrite.html) of extrantsr as the non-linear registration tool at this stage.
 
@@ -148,7 +148,7 @@ The [`nibabel`](http://nipy.org/nibabel/) is used for NIFTI to PNG transform.
 ### <a id="toc3.4">3.4 Training and Validation Group</a>
 The training and validation groups requires for the DL module. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
 
-For each study group, we separate the training and validation groups manually into list, the [ADDL Study](data_selection_and_diagnostics.md) contains the train and validation groups information.
+For each study group, we separate the training and validation groups manually into list, the [ADDL Study](study.md) contains the train and validation groups information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -168,7 +168,7 @@ The project is using [TFLearn](http://tflearn.org/) for DL module implementation
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc6">6. Diagnostic Algorithm</a>
-The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](data_selection_and_diagnostics.md#diagnostics) for the detail information.
+The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](study.md#diagnostics) for the detail information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
