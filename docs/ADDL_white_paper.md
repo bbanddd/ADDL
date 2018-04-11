@@ -168,7 +168,7 @@ The project is using [TFLearn](http://tflearn.org/) for DL module implementation
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc6">6. Diagnostic Algorithm</a>
-The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](docs/data_selection_and_diagnostics.md) for the detail information.
+The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](data_selection_and_diagnostics.md) for the detail information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
