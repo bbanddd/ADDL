@@ -26,8 +26,6 @@ The data selection groups ADNI data into several study groups, which helps find 
 |4|ADNI_1.5T_All_AD_NL_FilterScores|212|334|546|
 |5|ADNI_1.5T_All_AD_NL_Scale2_LessNL_Scale2|179|287|466|
 
-**Training and Validation Group**<br>
-Note the training and validation groups requires for the DL module. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
 
 ## `ADNI_1.5T_All_AD_NL`
 Select pure AD and NL subjects as a group without MCI subjects and subject who transfer AD from NL. This is the baseline of following data selection.
