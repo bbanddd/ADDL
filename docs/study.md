@@ -1,5 +1,5 @@
 # Introduction
-Try to get higher AD diagnostic precision, we group the ADNI MRI data into several study groups, designed different diagnostic methodology, and apply ADDL pipeline. Specially, we get about 95% AD diagnostic precision.
+Try to get higher AD diagnostic precision, we group the ADNI MRI data into several study groups, design different diagnostic methodologies, and apply ADDL pipeline. Specially, we get about 95% AD diagnostic precision.
 
 # Data Selection
 The data selection groups ADNI data into several study groups, which helps find the AD features by crossing comparing AD diagnostic results of study groups. Base on different methodologies, we groups the ADNI data into following five groups.
@@ -9,7 +9,7 @@ The data selection groups ADNI data into several study groups, which helps find 
 1. `ADNI_1.5T_All_AD_NL_FilterScores`
 1. `ADNI_1.5T_All_AD_NL_FilterScores_Scale2`
 
-**Subjects Counts of Groups**<br>
+**Tablle of Subjects Counts of Study Groups**<br>
 
 |Index|Group Count|NL Subjects|AD Subjects|Total Subjects|
 |:----:|:----:|:----:|:----:|:----:|
@@ -19,7 +19,7 @@ The data selection groups ADNI data into several study groups, which helps find 
 |4|ADNI_1.5T_All_AD_NL_FilterScores|45|98|143|
 |5|ADNI_1.5T_All_AD_NL_Scale2_LessNL_Scale2|45|98|143|
 
-**NIFTI/Images Counts of Groups**<br>
+**Table of NIFTI/Images Counts of Study Groups**<br>
 
 |Index|Group Count|NL NIFTIs|AD NIFTIs|Total NIFTIs|
 |:----:|:----:|:----:|:----:|:----:|
@@ -43,35 +43,33 @@ Select pure AD and NL subjects as a group without MCI subjects and subject who t
 1. Remove all data records with empty diagnose information (DX).
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example, that is named  [Rule1_ADNI_1.5T_All_AD_NL](..\examples\Rule1_ADNI_1.5T_All_AD_NL).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example instance, that is named  [Rule1_ADNI_1.5T_All_AD_NL](..\examples\Rule1_ADNI_1.5T_All_AD_NL).
 * `dataList_ADNI_1.5T_All_AD_NL.dat` is the data list of `ADNI_1.5T_All_AD_NL` study group.
-* `dataList_ADNI_1.5T_All_AD_NL_test.dat` is the training data lit, used for DL module training.
-* `dataList_ADNI_1.5T_All_AD_NL_train.dat` is the validation data list, used for diagnostic.
-* `labels_ADNIMERGE_UNIFORM_DX_AD_NL_sortByVID_withDX_NEDX.dat` is the training data label, used for DL module training.
+* `dataList_ADNI_1.5T_All_AD_NL_test.dat` is the validation set of this study group.
+* `dataList_ADNI_1.5T_All_AD_NL_train.dat` is the training set of this study group.
 
 ## `ADNI_1.5T_All_AD_NL_Scale2`
-Besides baseline data selection, for each data that has a
-‘Scale_2’ version, the corresponding ‘Scale’ version is removed. The phantom scaling of ['Scale_2'](http://adni.loni.usc.edu/scaled-2-uploads/) is more reliable.
+Besides baseline data selection, for each data that has a ‘Scale_2’ version, the corresponding ‘Scale’ version is removed. The phantom scaling of ['Scale_2'](http://adni.loni.usc.edu/scaled-2-uploads/) is more reliable. So this study group remove the data pends on ADNI preprocess sequence.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example, that is named  [Rule2_ADNI_1.5T_All_AD_NL_Scale2](..\examples\Rule2_ADNI_1.5T_All_AD_NL_Scale2).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2` group as an example instance, that is named  [Rule2_ADNI_1.5T_All_AD_NL_Scale2](..\examples\Rule2_ADNI_1.5T_All_AD_NL_Scale2).
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2.dat` is the data list of `ADNI_1.5T_All_AD_NL_Scale2` study group.
-* `dataList_ADNI_1.5T_All_AD_NL_Scale2_test.dat` is the training data lit, used for DL module training.
-* `dataList_ADNI_1.5T_All_AD_NL_Scale2_train.dat` is the validation data list, used for diagnostic.
-* The label please reference to the `Rule1_ADNI_1.5T_All_AD_NL` label, which is the full set of all the study groups.
+* `dataList_ADNI_1.5T_All_AD_NL_Scale2_test.dat` is the validation set of this study group.
+* `dataList_ADNI_1.5T_All_AD_NL_Scale2_train.dat` is the training set of this study group.
 
 ## `ADNI_1.5T_All_AD_NL_Scale2_LessNL`
-Based on ADNI_1.5T_All_AD_NL_Scale2, about half of the NL data are removed.
+Based on ADNI_1.5T_All_AD_NL_Scale2, about half of the NL data are removed. We reduce the NL data, which means raise the AD data ratio in the study group, expect that the DL module contains more AD features for higher precision.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example, that is named  [Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL](..\examples\Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2_LessNL` group as an example instance, that is named  [Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL](..\examples\Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL).
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL.dat` is the data list of `ADNI_1.5T_All_AD_NL_Scale2_LessNL` study group.
-* `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_test.dat` is the training data lit, used for DL module training.
-* `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_train.dat` is the validation data list, used for diagnostic.
-* The label please reference to the `Rule1_ADNI_1.5T_All_AD_NL` label, which is the full set of all the study groups.
+* `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_test.dat` is the validation set of this study group.
+* `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_train.dat` is the training set of this study group.
 
 ## `ADNI_1.5T_All_AD_NL_FilterScores`
-Besides applying common rules. For each subject, if one if its data record's cognition testing score, CDRSB, ADAS11 or MMSE, is not resides in a given range, the whole subject is removed.
+Besides applying common rules. For each subject, if one if its data record's cognition testing score, CDRSB, ADAS11 or MMSE, is not resides in a given range, the whole subject is removed. We keep the data with more AD and NL features with the test score filter, expect the DL module contains more AD and NL feature for higher precision.
+
+**Table of Subjects Score Range**<br>
 
 ||NL Low|NL High|AD Low|AD High|
 |:----:|:----:|:----:|:----:|:----:|
@@ -80,21 +78,19 @@ Besides applying common rules. For each subject, if one if its data record's cog
 |MMSE|27.9|30.3|21|25.2|
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example, that is named  [Rule4_ADNI_1.5T_All_AD_NL_FilterScores](..\examples\Rule4_ADNI_1.5T_All_AD_NL_FilterScores).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores` group as an example instance, that is named  [Rule4_ADNI_1.5T_All_AD_NL_FilterScores](..\examples\Rule4_ADNI_1.5T_All_AD_NL_FilterScores).
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores.dat` is the data list of `ADNI_1.5T_All_AD_NL_FilterScores` study group.
-* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_test.dat` is the training data lit, used for DL module training.
-* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_train.dat` is the validation data list, used for diagnostic.
-* The label please reference to the `Rule1_ADNI_1.5T_All_AD_NL` label, which is the full set of all the study groups.
+* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_test.dat` is the validation set of this study group.
+* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_train.dat` is the training set of this study group.
 
 ## `ADNI_1.5T_All_AD_NL_FilterScores_Scale2`
 'Scaled_2' version of ADNI_1.5T_All_AD_NL_FilterScores.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` group as an example, that is named  [Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2](..\examples\Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` group as an example instance, that is named  [Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2](..\examples\Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2).
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2.dat` is the data list of `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` study group.
-* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_test.dat` is the training data lit, used for DL module training.
-* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_train.dat` is the validation data list, used for diagnostic.
-* The label please reference to the `Rule1_ADNI_1.5T_All_AD_NL` label, which is the full set of all the study groups.
+* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_test.dat` is the validation set of this study group.
+* `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_train.dat` is the training set of this study group.
 
 ----
 
@@ -103,8 +99,7 @@ The last stage of ADDL inference process is diagnostics, which basing on the DL 
 
 
 ## Numbers
-Base on the number comparing between AD and NL is the most directly method, that is the baseline of all the strategies.
-
+Base on the number comparing between AD and NL is a straightforward method, the more AD results hints more AD feature found for a subject. This is the baseline of all the strategies. The pseudo code is listed below.
 ```
 if number_of_AD_png > number_of_NL_png:
 		subject_class = AD
@@ -114,8 +109,7 @@ else:
 ```
 
 ## Continuous
-To mitigate the impact of single PNG result, we get continuous stragegy.
-
+Considering the feature should be continuous in 3D spatial, to mitigate the impact of single PNG result, we get continuous methodology. The pseudo code is listed below.
 ```
 if there exists continuous N AD png:
 	subject_class = AD
@@ -124,28 +118,26 @@ else:
 
 ```
 
-This strategy gets different N in different data selections, and overall accuracy is better than baseline strategy in only data selection 1.
+This strategy gets different N in different data selections, and overall accuracy is better than baseline strategy in the study group 1 only.
 
 ## Low Z Location
-According to medical research, hippocampus tends to show the most rapid loss of tissue earliest in Alzheimer’s disease. Only bottom N PNG files are checked instead of all in baseline strategy.
-
+According to medical research, hippocampus tends to show the most rapid loss of tissue earliest in Alzheimer’s disease. Only bottom N PNG files are checked instead of all PNG of baseline strategy. The pseudo code is listed below.
 ```
 In the bottom N PNG files:
 if number_of_AD_png > number_of_NL_png:
 		subject_class = AD
 else:
 		subject_class = NL
-
 ```
 
-This strategy has a common N in different data selections. Although not all data selections achieve the best overall accuracy under this N, all get better performance than baseline strategy.
+This strategy has a common N in different data selections. Although not all study groups achieve the best overall accuracy under this N, but all groups get better performance than baseline strategy.
 
 ----
 
 # Results
-**Default subject level test results**<br>
+**Table of "Number" Strategy of Subject Level Validation Results**<br>
 
-||Data Selection 1|Data Selection 2|Data Selection 3|Data Selection 4|Data Selection 5|
+||Study Group 1|Study Group 2|Study Group 3|Study Group 4|Study Group 5|
 |:----:|:----:|:----:|:----:|:----:|:----:|
 |P|122|107|107|69|53|
 |N|145|116|77|41|35|
@@ -159,7 +151,7 @@ This strategy has a common N in different data selections. Although not all data
 |FNR|26.23%|24.30%|13.08%|2.90%|0.00%|
 |ACC|82.40%|83.41%|86.96%|89.09%|87.50%|
 
-The rows means list:
+**Rows List:**<br>
 * *P* positive samples
 * *N* negative samples
 * *TP* true positive
@@ -173,9 +165,9 @@ The rows means list:
 * *ACC* accuracy
 
 
-**subject level test results, strategy variation, N = 32**<br>
+**Table of "Low Z Location N=32" Subject Level Validation Results**<br>
 
-||Data Selection 1|Data Selection 2|Data Selection 3|Data Selection 4|Data Selection 5|
+||Study Group 1|Study Group 2|Study Group 3|Study Group 4|Study Group 5|
 |:----:|:----:|:----:|:----:|:----:|:----:|
 |TPR|77.87%|74.77%|83.18%|98.55%|96.23%|
 |TNR|95.17%|95.69%|94.81%|87.80%|94.29%|
@@ -186,6 +178,6 @@ The rows means list:
 ----
 
 # Conclusions
-1.	Overall accuracy increases if training set has more AD data than NL. For example, data selection 3 AD/NL = 1.43, data selection 4 AD/NL = 1.58. (One possible reason is that the information for classifying the image as AD occupies only a little part of the image.) This is observed in ADNI 1.5T dataset, further verification is needed to verify other datasets.
-1.	Performance increases when making use of some medical knowledge.
-1.	The results of dataset 4 and 5 are for reference, it is possible that their results are not reliable due to small amount of data.
+1. The higher AD/NL ratio gets higher precision, which is same as the expectation from study group 3(1.43) and 4(1.58), that the higher AD/NL ratio make DL module contains more AD features.
+1. Higher precision from study groups 4 and 5, which is same as the expectation, that the test score filter hold more AD/NL features in the DL module. But the concern is study group data amount is small to support this.
+1. The diagnostic method "Low Z location" get higher precision, hints the hippocampus tissue contains more AD features.
