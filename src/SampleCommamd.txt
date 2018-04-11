@@ -1,0 +1,33 @@
+python ADDL.py -P 
+	--P_input_data_dir ~/data_bk/ad_demo_data_2018/ADNI_1.5T_All/ 
+	--P_train_list ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_train.dat 
+	--P_test_list ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_test.dat 
+	--label_file ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/labels_ADNIMERGE_UNIFORM_DX_AD_NL_sortByVID_withDX_NEDX.dat 
+	--output_dir test_output_dir_2/
+	
+python ADDL.py -T 
+	--T_input_data_dir test_output_dir_2/data_binary/ 
+	--T_run_id adc_test 
+	--T_epoch 1 
+	--output_dir test_output_dir_2/
+
+ python ADDL.py -P -T 
+	--P_input_data_dir ~/data_bk/ad_demo_data_2018/ADNI_1.5T_All/ 
+	--P_train_list ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_train.dat 
+	--P_test_list ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_test.dat 
+	--label_file ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/labels_ADNIMERGE_UNIFORM_DX_AD_NL_sortByVID_withDX_NEDX.dat 
+	--output_dir test_output_dir_2/ 
+	--T_run_id adc_test 
+	--T_epoch 1
+
+python ADDL.py -I 
+	--I_input_test_png_dir test_output_dir_2/png_split/test/ 
+	--I_input_model test_output_dir_2/model/model-269 
+	--output_dir test_output_dir_2/ 
+	--label_file ../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2/labels_ADNIMERGE_UNIFORM_DX_AD_NL_sortByVID_withDX_NEDX.dat
+
+python ADDL.py -P -I 
+	--P_input_data_dir data_test/ 
+	--P_study_specific_template test_output_dir_2/data/struc/template_GM.nii.gz 
+	--I_input_model test_output_dir_2/model/model-269 
+	--output_dir test_output_dir_3
