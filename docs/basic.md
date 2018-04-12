@@ -75,7 +75,7 @@ The analysis of structural MRI focus on quantify tissue volumes and structure sh
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3">2.3 Limitations</a>
-The structural MRI count not measure tissue type(GM/WM/CSF) directly, it is not quantitative. The GM and WM value are vary between T1 weighted and T2 weighted. The constrast of subcortical regions is poor. Single acquisition sequence does not show all pathologies. Especially the artifacts and noise of the MRI data is the major limitation of analysis.
+The structural MRI count not measure tissue type(GM/WM/CSF) directly, it is not quantitative. The GM and WM value are vary between T1 weighted and T2 weighted. The contrast of subcortical regions is poor. Single acquisition sequence does not show all pathologies. Especially the artifacts and noise of the MRI data is the major limitation of analysis.
 
 There is always a trade-off in MRI between acquisition time, resolution and noise(SNR). For analysis the contrast to noise ratio(CNR) is often more important and contrast depends on MR sequence too.
 
