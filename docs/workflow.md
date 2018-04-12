@@ -24,7 +24,7 @@
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc1">1. ADDL Introduction</a>
-The ADDL project bases on structural MRI (T1, 2017) data of Alzheimer's disease(AD) and non-Alzheimer's disease(NL) subjects of ADNI. It takes ResNet DL module to learn the brain gray matter(GM) images obtained through preprocessing, and applies diagnostic algorithm on the ResNet module inference results for the AD diagnostic.
+The ADDL project bases on structural MRI (T1, 2017) data of Alzheimer's disease(AD) and non-Alzheimer's disease(NL) subjects of ADNI, it takes ResNet DL module to learn the brain gray matter(GM) images obtained through preprocessing, and applies diagnostic algorithm on the ResNet module inference results for the AD diagnostic.
 
 ![Figure of ADDL Pipeline](images/sc_wp_addl_flow_en.png)
 
@@ -42,7 +42,7 @@ The preprocessing stage gets GM from ADNI MRI T1 data. We use [FSL-VBM](http://f
 
 ![Figure of Preprocessing Flow](images/sc_wp_preprocess_flow_en.png)
 
-The figure above shows the FSL-VBM work flow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) file name.
+The figure above shows the FSL-VBM workflow details. The index of each process matches with the preprocess [sources](../src/1.DataPreprocessing) file name.
 
 Please refer to [ADDL basic](basic.md#toc3.6.2) document for the MNI-152 standard template information. This project uses MNI-152 template from the FSL package.
 
@@ -60,7 +60,7 @@ The brain mask of MNI-152 template register to all the ADNI MRI data with affine
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ## <a id="toc2.2">2.2 Grey Matter Segmentation</a>
-After the brain extraction stage, the GM segmentation stage gets all the ADNI subjects GM tissues data in native space, which is the start point of following GM registration processes.
+After the brain extraction stage, the GM segmentation stage gets all the ADNI subjects GM tissues data, which is the start point of following GM registration processes.
 
 We use [`FAST`](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FAST)<sup>\[[5](#r5)\]</sup> of FSL package as the GM segmentation tool.
 
@@ -78,7 +78,7 @@ Template creation gets a study group specify GM template from all the subjects G
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 ### <a id="toc2.3.1">2.3.1 Affine Registration</a>
-Please check the [ADNI basic](basic.md#toc3.3) for the affine registration detail.
+Please check the [ADDL basic](basic.md#toc3.3) for the affine registration detail.
 
 The project use [`fsl_reg`](https://manned.org/fsl4.1-fsl_reg/baac7ea7) of FSL as the affine registration tools at this stage.
 
@@ -93,10 +93,10 @@ The project uses [`ants_regwrite`](https://rdrr.io/github/neuroconductor/extrant
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
-### <a id="toc2.3.4">2.3.4 Template Generation</a>
+### <a id="toc2.3.3">2.3.3 Template Generation</a>
 The template generation gets a template for the study group, it contains the average and left-right mirror operations. The average makes the template contains all the subjects information, and the left-right mirror is from the brain left-right symmetric.
 
-The project use [`fslmerge`](https://www.rdocumentation.org/packages/fslr/versions/2.0/topics/fslmerge), [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands/) and [`fslswapdim`](https://www.rdocumentation.org/packages/fslr/versions/2.0/topics/fslswapdim) of FSL for the template generation tools.
+The project use [`fslmerge`](https://www.rdocumentation.org/packages/fslr/versions/2.0/topics/fslmerge), [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands/) and [`fslswapdim`](https://www.rdocumentation.org/packages/fslr/versions/2.0/topics/fslswapdim) of FSL package for the template generation tools.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -112,7 +112,7 @@ The project uses [`antsRegistration`](https://www.rdocumentation.org/packages/AN
 ## <a id="toc2.5">2.5 Modulation</a>
 As a result of nonlinear spatial normalization, the volumes of certain brain regions may grow, whereas others may shrink. In order to preserve the volume of a particular tissue (grey or white matter or CSF) within a voxel, a further processing step is incorporated. This involves multiplying (or modulating) voxel values in the segmented images by the Jacobian determinants derived from the spatial normalization step. In effect, an analysis of modulated data tests for regional differences in the absolute amount (volume) of grey matter, whereas analysis of unmodulated data tests for regional differences in concentration of grey matter (per unit volume in native space) (Ashburner and Friston, 2000)<sup>\[[6](#r6)\]</sup>.
 
-The project use [`createJacobianDeterminantImage`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/createJacobianDeterminantImage) of AntsR as the modulation tool at this stage.
+The project use [`createJacobianDeterminantImage`](https://www.rdocumentation.org/packages/ANTsR/versions/1.0/topics/createJacobianDeterminantImage) of ANTsR package as the modulation tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -120,7 +120,7 @@ The project use [`createJacobianDeterminantImage`](https://www.rdocumentation.or
 ## <a id="toc2.6">2.6 Smooth</a>
 The normalized, segmented images are smoothed using a 3-mm FWHM isotropic Gaussian kernel. This conditions the data to conform more closely to the Gaussian field model underlying the statistical procedures used for making inferences about regionally specific effects. Smoothing also has the effect of rendering the data more normally distributed (by the central limit theorem). The intensity in each voxel of the smoothed data is a locally weighted average of grey matter density from a region of surrounding voxels, the size of the region being defined by the size of the smoothing kernel (Ashburner and Friston, 2000)<sup>\[[6](#r6)\]</sup>.
 
-The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands/) of FSL as the smooth tool at this stage.
+The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands/) of FSL package as the smooth tool at this stage.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -128,25 +128,37 @@ The project use [`fslmaths`](https://mandymejia.wordpress.com/fsl-maths-commands
 # <a id="toc3">3. Format Transform</a>
 The format transform or NIFTI2PNG process services for the DL module.
 
-![Figure of Format Transform](images/sc_wp_format_transfer.png)
+![Figure of Format Transform](images/sc_wp_format_transfer_en.png)
 
-### <a id="toc3.1">3.1 Normalization</a>
-The data normalization operation is involved for the DL module, which helps accelerate the DL module convergent. The normaization operations are shown below.
+----
+[<p align='right'>*Back to Content*</p>](#toc_content)
+
+## <a id="toc3.1">3.1 Normalization</a>
+The data normalization operation is involved for the DL module, which helps accelerate the DL module convergent. The normalization operations are shown below.
 
 ![LATEX:z=\frac{x-mean(x)}{stdev(x)}](http://latex.codecogs.com/gif.latex?z%3D%5Cfrac%7Bx-mean%28x%29%7D%7Bstdev%28x%29%7D)
 
 ![LATEX:z=\frac{x-min(x)}{max(x)-min(x)}](http://latex.codecogs.com/gif.latex?z%3D%5Cfrac%7Bx-min%28x%29%7D%7Bmax%28x%29-min%28x%29%7D)
 
-### <a id="toc3.2">3.2 3D-2D Format Transfer</a>
-The DL module expect 2D images data, so this stage changes the ADNI MRI format NIFTI to PNG, which changes a 3D imaging data into several 2D images along the Z axle.
+----
+[<p align='right'>*Back to Content*</p>](#toc_content)
+
+## <a id="toc3.2">3.2 3D-2D Format Transfer</a>
+The DL module requires input 2D images data, so this stage changes the ADNI MRI format from NIFTI to PNG, which changes a 3D imaging data into several 2D images along the Z axle.
 
 The [`nibabel`](http://nipy.org/nibabel/) is used for NIFTI to PNG transform.
 
-### <a id="toc3.3">3.3 Z Axle Selection<br>
- After the GM segmentation and registration of preprocessing process, there are some blank images in the top and bottom area, we remove all the blank images at the same Z axle location for all the subject images.
+----
+[<p align='right'>*Back to Content*</p>](#toc_content)
 
-### <a id="toc3.4">3.4 Training and Validation Group</a>
-The training and validation groups requires for the DL module. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
+## <a id="toc3.3">3.3 Z Axle Selection</a>
+After the GM segmentation and registration of preprocessing process, there are some blank images in the top and bottom area, we remove all the blank images at the same Z axle location for all the subject images.
+
+----
+[<p align='right'>*Back to Content*</p>](#toc_content)
+
+## <a id="toc3.4">3.4 Training and Validation Group</a>
+The DL module requires the training and validation groups. For each study group, 80% of the images of both of AD and NL class are chosen for training, and the rest 20% are for validation. One subject, together with his/her images of all visits, appear in only training or validation group.
 
 For each study group, we separate the training and validation groups manually into list, the [ADDL Study](study.md) contains the train and validation groups information.
 
@@ -154,7 +166,7 @@ For each study group, we separate the training and validation groups manually in
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc4">4. Package Binary</a>
-The package binary process services for the DL module more detail. It resizes the PNG resolution according the DL module, 32x32 in the project. It packages the PNG data with label for the DL module train process, packages the PNG data by subjects for the DL module inference process. It saves the PNG data in the Python object efficient way because the DL module is a Python script too.   
+The package binary process services for the DL module more detail. It resizes the PNG resolution according the DL module(32x32 in the project). It packages the train set PNG data with label for the DL module train process, packages the validation PNG data by subjects for the DL module inference process. It saves the PNG data in the Python object efficient way because the DL module is a Python script too.   
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -168,7 +180,7 @@ The project is using [TFLearn](http://tflearn.org/) for DL module implementation
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
 # <a id="toc6">6. Diagnostic Algorithm</a>
-The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains more than 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the different GM location or the tissue connection might indication the AD features, for better accuracy we weighted each element of the label vector as the quantity of diagnostic. Please refer to the document [ADDL study](study.md#diagnostics) for the detail information.
+The output of ResNet module of the inference process is the AD/NL classification label of a PNG along the Z axle, and a MRI 3D data of a subject contains about 60 labels. The diagnostic algorithm gives a diagnostic result base on the AD predication labels of images along the Z axle. Considering the GM location or the tissue connection might indication the AD features, for better accuracy we weighted each label vector as the quantity of diagnostic. Please refer to the document [ADDL study](study.md#diagnostics) for the detail information.
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)

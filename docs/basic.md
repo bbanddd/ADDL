@@ -37,10 +37,10 @@
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
-## <a id="toc1">1 Brain Anatomy</a>
+## <a id="toc1">1. Brain Anatomy</a>
 The central nervous system(CNS) has two kinds of tissue: grey matter and white matter, grey matter, which has a pinkish-grey color in the living brain, contains the cell bodies, dendrites and axon terminals of neurons, so it is where all synapses are. White matter is made of axons connecting different parts of grey matter to each other.
 
-![Figure of Basic Brain Anatomy](images/sc_wp_anatomy1_en.png)
+![Figure of Basic Brain Anatomy](images/sc_basic_anatomy1_en.png)
 
 ***Grey Matter***<br>
 Grey matter (or gray matter, GM) is a major component of the central nervous system, consisting of neuronal cell bodies, neuropil (dendrites and myelinated as well as unmyelinated axons), glial cells (astrocytes and oligodendrocytes), synapses, and capillaries. Grey matter is distinguished from white matter, in that it contains numerous cell bodies and relatively few myelinated axons, while white matter contains relatively few cell bodies and is composed chiefly of long-range myelinated axon tracts. The colour difference arises mainly from the whiteness of myelin. In living tissue, grey matter actually has a very light grey colour with yellowish or pinkish hues, which come from capillary blood vessels and neuronal cell bodies.
@@ -56,7 +56,7 @@ Cerebrospinal fluid(CSF) is a clear, colorless body fluid found in the brain and
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
-## <a id="toc2">2 Structural MRI</a>
+## <a id="toc2">2. Structural MRI</a>
 The Structural MRI reflect brain anatomy, and acquisition time depends on SNR and resolution(typ. 3-15mins), there are many different and good varieties of sequences to acquire these images.
 
 ----
@@ -88,7 +88,7 @@ T1 weighted images tend to be the best for the SNR/time/resolution tradeoff, 1mm
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
-## <a id="toc3">3 Theoretical Foundations of Brain Registration</a>
+## <a id="toc3">3. Theoretical Foundations of Brain Registration</a>
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -103,7 +103,7 @@ Since MRI images are related to physical objects, we require some way to relate 
 
 In the data matrix, a specific voxel can be indexed as [Xvox, Yvox, Zvox], where these three coordinates specify its position along each dimension in the matrix. The specifics about how these data are stored (e.g., whether the first X value refers to the leftmost or rightmost voxel) are generally stored in the image header or image metadata.
 
-![MRI Dimensions and Coordinate Mapping](images/sc_wp_coordinate1_en.png)
+![Figure of MRI Dimensions and Coordinate Mapping](images/sc_basic_coordinate1_en.png)
 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
@@ -117,7 +117,7 @@ The coordinate systems provide a link between the physical structures in the bra
 ### <a id="toc3.2">3.2 Spatial Transformations</a>
 Several aspects of MRI analysis require spatially transforming images in some way, for example, to align images within individuals (perhaps to correct for head motion) or across individuals (in order to allow group analysis). There is an unlimited number of ways to transform an image. A simple transformation (with a small number of parameters) might move a structure in space without changing its shape, whereas a more complex transformation might match the shape of two complex structures to one another. In general, we will focus on methods that have relatively few parameters in relation to the number of voxels. We will also limit our focus to automated methods that do not require any manual delineation of anatomical landmarks, since these are by far the most common today. In this section, we only discuss volume-based transformations, which involve changes to a three-dimensional volume of data.
 
-Two steps are necessary to align one image to another. First, we have to estimate the transformation parameters that result in the best alignment. This requires that we have a transformation model that specifies the ways in which the image can be changed in order to realign it. Each parameter in such a model describes a change to be made to the image. A very simple model may have only a few parameters; such a model will only be able to make gross changes and will not be able to align the fine details of the two images. A complex model may have many more parameters and will be able to align the images better, especially in their finer details. We also need a way to determine how misaligned the two images are, which we refer to as a cost function. It is this cost function that we want to minimize in order to find the parameters that best align the two images。
+Two steps are necessary to align one image to another. First, we have to estimate the transformation parameters that result in the best alignment. This requires that we have a transformation model that specifies the ways in which the image can be changed in order to realign it. Each parameter in such a model describes a change to be made to the image. A very simple model may have only a few parameters; such a model will only be able to make gross changes and will not be able to align the fine details of the two images. A complex model may have many more parameters and will be able to align the images better, especially in their finer details. We also need a way to determine how misaligned the two images are, which we refer to as a cost function. It is this cost function that we want to minimize in order to find the parameters that best align the two images.
 
 Once we have determined the parameters of the transformation model, we must then resample the original image in order to create the realigned version. The original coordinates of each voxel are transformed into the new space, and the new image is created based on those transformed coordinates. Since the transformed coordinates will generally not fall exactly on top of coordinates from the original image, it is necessary to compute what the intensity values would be at those intermediate points, which is known as interpolation. Methods of interpolation range from simple (such as choosing the nearest original voxel) to complex weighted averages across the entire image.
 
@@ -215,7 +215,7 @@ The most common templates used for spatial normalization are those developed at 
 ----
 [<p align='right'>*Back to Content*</p>](#toc_content)
 
-## <a id="toc4">4 Theoretical Foundations of Brain Segmentation</a>
+## <a id="toc4">4. Theoretical Foundations of Brain Segmentation</a>
 Bayes’ theorem provides a powerful mechanism for making inductive inferences assuming the availability of quantities defining the relevant conditional probabilities, specifically the likelihood and prior probability terms. Bayesian paradigms for brain image segmentation employ a user selected observation model defining the likelihood term and one or more prior probability terms. The product of likelihood(s) and prior(s) is proportional to the posterior probability. The likelihood term is defined  parametrically (e.g. a Gaussian model) or non-parametrically (e.g. Parzen windowing of the sample histogram). The prior term, as given in the literature, has often been formed either as MRF-based and/or template-based. An image segmentation solution in this context is an assignment of one label to each voxel such that the posterior probability is maximized.
 
 A generic Bayesian framework(Sanjay-Gopal and Hebert, 1998) requires likelihood models and prior models which enter into Bayes formula,<br><br>
