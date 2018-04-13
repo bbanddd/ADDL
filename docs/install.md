@@ -245,7 +245,7 @@ The FSL download and install is easy, that handle with a FSL install tool named 
 
 **Download**<br>
 1. Download the FSL install tool from url `https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py`.
-2. Get the FSL package url base on OS from FSL install tools.
+1. Get the FSL package url base on OS from FSL install tools.
    1. Search the `download_file()` function defination in the `fslinstaller.py`, adding the print url code.
 ```python
 def download_file(url, localf, timeout=20):
@@ -257,7 +257,7 @@ def download_file(url, localf, timeout=20):
         raise DownloadFileError(str(e))
 ```
 
-   2. Get the FSL package url by the following command, and then Control-c.
+   1. Get the FSL package url by the following command, and then Control-c.
 ```bash
 python fslinstaller.py -o
 ```
@@ -276,7 +276,7 @@ ANTsR is a package providing ANTs features in R as well as imaging-specific data
 
 ANTsR interfaces state of the art image processing with R statistical methods. The project grew out of the need, at University of Pennsylvania, to develop large-scale analytics pipelines that track provenance from scanner to scientific study. ANTsR wraps an ANTs and ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses. Specialized functionality in ANTsR includes image segmentation and registration along imaging specific variations of principal component and canonical correlation analysis.
 
-### Components Introduction
+### Introduction
 **[R](https://www.r-project.org)**<br>
 R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc.
 
