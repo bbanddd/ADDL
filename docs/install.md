@@ -86,10 +86,9 @@ Specially, the native GPU driver of CentOS is Noveau, which is a third party ope
 
 **Download**<br>
 1. Manually find the drivers at [link](https://www.nvidia.com/drivers). Select the matching fields from the drop box listed below; and then click the "SEARCH" button for the search result page.<br><br>
-![Figure of Download NVIDIA Driver](images/sc_install_driver1_en.png)
-   <br><br>
-2. Click the "DOWNLOAD" button at the search result page for the driver download url.
-3. Click the "AGREE & DOWNLOAD" button downloading directly at the download confirmation page, or right click the button for the download url.
+![Figure of Download NVIDIA Driver](images/sc_install_driver1_en.png)<br><br>
+1. Click the "DOWNLOAD" button at the search result page for the driver download url.
+1. Click the "AGREE & DOWNLOAD" button downloading directly at the download confirmation page, or right click the button for the download url.
 
 Downloaded package is `NVIDIA-Linux-x86_64-390.25.run`.
 
@@ -123,12 +122,10 @@ Select the suitable CUDA version base on TenorFlow requirement, and select the s
 
 **Download**<br>
 1. Manually find the CUDA 9.0 from the [archive page](https://developer.nvidia.com/cuda-toolkit-archive),
-2. Select the matching fields of the check box from the CUDA download page listed below.<br><br>
-![Figure of CUDA Select Target Platform](images/sc_install_cuda1_en.png)
-   <br><br>
-3. The CUDA and patch packages are listed below, the download url is at the "Download" button.<br><br>
-![Figure of CUDA and Patch Packages](images/sc_install_cuda2_en.png)
-   <br><br>
+1. Select the matching fields of the check box from the CUDA download page listed below.<br><br>
+![Figure of CUDA Select Target Platform](images/sc_install_cuda1_en.png) <br><br>
+1. The CUDA and patch packages are listed below, the download url is at the "Download" button.<br><br>
+![Figure of CUDA and Patch Packages](images/sc_install_cuda2_en.png)<br><br>
 
 Downloaed Packages
 * `cuda_9.0.176_384.81_linux.run`
@@ -147,11 +144,10 @@ The cuDNN is a CUDA library used for DL compuation, the installation process is 
 
 **Download**<br>
 1. Download a cuDNN package requires registration as a NVIDIA Developer. Click "Join" button of the NVIDA developer [main page](https://developer.nvidia.com/) to finished the register process, if one is not assigned.
-2. Goto the cuDNN [download page](https://developer.nvidia.com/rdp/cudnn-download), and enable the check box of "cuDNN software license agreement".
-3. Select the cuDNN v7.0.5 for CUDA 9.0 as the TensorFlow requirement, and get the dropdown selections.<br><br>
-![Figure of cuDNN Download](images/sc_install_cudnn1_en.png)
-   <br><br>
-4. Get the download url of the cuDNN package from the "cuDNN v7.0.5 Library for Linux" selection.
+1. Goto the cuDNN [download page](https://developer.nvidia.com/rdp/cudnn-download), and enable the check box of "cuDNN software license agreement".
+1. Select the cuDNN v7.0.5 for CUDA 9.0 as the TensorFlow requirement, and get the dropdown selections.<br><br>
+![Figure of cuDNN Download](images/sc_install_cudnn1_en.png)<br><br>
+1. Get the download url of the cuDNN package from the "cuDNN v7.0.5 Library for Linux" selection.
 
 Note: If your downloaded package is named `cudnn-9.0-linux-x64-v7.solitairetheme8`, the suffix solitairetheme8 is Microsoft Solitaire Collection caused, rename it to tgz should be fine.
 
@@ -298,8 +294,6 @@ A package providing core features for ANTsR.
 
 **[Extrantsr](https://github.com/muschellij2/extrantsr)**<br>
 Extrantsr extends the ANTsR package with simple wrappers and complex processing streams for neuroimaging data.
-
-The project implements brain extraction through Extrantsr.
 
 ### Installation
 The ANTsR installation is a high cost process, which contains package download and source build process. Try to accelerator the process please choosing a CPAN mirror nearly, and assign more threads for the build process. The Extrantsr contains ANTsR install process.
