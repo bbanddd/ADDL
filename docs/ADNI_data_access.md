@@ -1,5 +1,5 @@
 # [ADNI Data Access](http://adni.loni.usc.edu/)
-**Registration**<br>
+**Registration Process**<br>
 1. Go to ADNI ["Access Data"](http://adni.loni.usc.edu/data-samples/access-data/) page.<br><br>
 ![Figure of Access ADNI](images/sc_adni_access1_en.png)<br><br>
 1. Click the ADNI Button for the registration process, fill your information, and submit.

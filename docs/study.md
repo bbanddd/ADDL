@@ -43,7 +43,7 @@ Select pure AD and NL subjects as a group without MCI subjects and subject who t
 1. Remove all data records with empty diagnose information (DX).
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example instance, that is named  [Rule1_ADNI_1.5T_All_AD_NL](..\examples\Rule1_ADNI_1.5T_All_AD_NL).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example instance, that is named  [Rule1_ADNI_1.5T_All_AD_NL](../examples/Rule1_ADNI_1.5T_All_AD_NL).
 * `dataList_ADNI_1.5T_All_AD_NL.dat` is the data list of `ADNI_1.5T_All_AD_NL` study group.
 * `dataList_ADNI_1.5T_All_AD_NL_test.dat` is the validation set of this study group.
 * `dataList_ADNI_1.5T_All_AD_NL_train.dat` is the training set of this study group.
@@ -52,7 +52,7 @@ The ADDL project stores the `ADNI_1.5T_All_AD_NL` group as an example instance, 
 Besides baseline data selection, for each data that has a ‘Scale_2’ version, the corresponding ‘Scale’ version is removed, because of ['Scale_2'](http://adni.loni.usc.edu/scaled-2-uploads/) is more reliable. So this study group remove the data pends on ADNI preprocess sequence.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2` group as an example instance, that is named  [Rule2_ADNI_1.5T_All_AD_NL_Scale2](..\examples\Rule2_ADNI_1.5T_All_AD_NL_Scale2).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2` group as an example instance, that is named  [Rule2_ADNI_1.5T_All_AD_NL_Scale2](../examples/Rule2_ADNI_1.5T_All_AD_NL_Scale2).
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2.dat` is the data list of `ADNI_1.5T_All_AD_NL_Scale2` study group.
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_test.dat` is the validation set of this study group.
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_train.dat` is the training set of this study group.
@@ -61,7 +61,7 @@ The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2` group as an example ins
 Based on `ADNI_1.5T_All_AD_NL_Scale2`, about half of the NL data are removed. We reduce the NL data, which means raise the AD data ratio in the study group, expect that the DL module contains more AD features for higher precision.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2_LessNL` group as an example instance, that is named  [Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL](..\examples\Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_Scale2_LessNL` group as an example instance, that is named  [Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL](../examples/Rule3_ADNI_1.5T_All_AD_NL_Scale2_LessNL).
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL.dat` is the data list of `ADNI_1.5T_All_AD_NL_Scale2_LessNL` study group.
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_test.dat` is the validation set of this study group.
 * `dataList_ADNI_1.5T_All_AD_NL_Scale2_LessNL_train.dat` is the training set of this study group.
@@ -78,7 +78,7 @@ Besides applying common rules. For each subject, if one if its data record's cog
 |MMSE|27.9|30.3|21|25.2|
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores` group as an example instance, that is named  [Rule4_ADNI_1.5T_All_AD_NL_FilterScores](..\examples\Rule4_ADNI_1.5T_All_AD_NL_FilterScores).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores` group as an example instance, that is named  [Rule4_ADNI_1.5T_All_AD_NL_FilterScores](../examples/Rule4_ADNI_1.5T_All_AD_NL_FilterScores).
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores.dat` is the data list of `ADNI_1.5T_All_AD_NL_FilterScores` study group.
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_test.dat` is the validation set of this study group.
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_train.dat` is the training set of this study group.
@@ -87,7 +87,7 @@ The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores` group as an examp
 'Scaled_2' version of ADNI_1.5T_All_AD_NL_FilterScores.
 
 **Data List**<br>
-The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` group as an example instance, that is named  [Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2](..\examples\Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2).
+The ADDL project stores the `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` group as an example instance, that is named  [Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2](../examples/Rule5_ADNI_1.5T_All_AD_NL_FilterScores_Scale2).
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2.dat` is the data list of `ADNI_1.5T_All_AD_NL_FilterScores_Scale2` study group.
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_test.dat` is the validation set of this study group.
 * `dataList_ADNI_1.5T_All_AD_NL_FilterScores_Scale2_train.dat` is the training set of this study group.
