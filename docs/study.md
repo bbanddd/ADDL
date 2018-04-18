@@ -11,7 +11,7 @@ The data selection groups ADNI data into several study groups, which helps find 
 
 **Table of Subjects Counts of Study Groups**<br>
 
-|Index|Stduy Group|NL Subjects|AD Subjects|Total Subjects|
+|Index|Stduy Groups|NL Subjects|AD Subjects|Total Subjects|
 |:----:|:----:|:----:|:----:|:----:|
 |1|ADNI_1.5T_All_AD_NL|158|184|342|
 |2|ADNI_1.5T_All_AD_NL_Scale2|158|184|342|
@@ -31,7 +31,7 @@ The data selection groups ADNI data into several study groups, which helps find 
 
 
 ## `ADNI_1.5T_All_AD_NL`
-Select pure AD and NL subjects as a group without MCI subjects and subject who transfer AD from NL. This is the baseline of following data selection.
+Select pure AD and NL subjects as a group without MCI subjects and subject who transfer AD from NL. This is the baseline of following data selections.
 
 **Detail Process**<br>
 1. Remove subjects with non-uniform diagnose information (DX), excluding subjects whose DX changes among visits, for example NL->MCI->AD.
@@ -150,7 +150,7 @@ This strategy has a common N in different study groups. Although not all study g
 |FNR|26.23%|24.30%|13.08%|2.90%|0.00%|
 |ACC|82.40%|83.41%|86.96%|89.09%|87.50%|
 
-**Rows List:**<br>
+**Rows List**<br>
 * *P* positive samples
 * *N* negative samples
 * *TP* true positive
