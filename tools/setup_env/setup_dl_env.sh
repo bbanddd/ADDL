@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+pkg_anaconda=Anaconda2-5.1.0-Linux-x86_64.sh
+pkg_tensorflow=tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl
+
 function setup_dl_env_variables()
 {
   # CUDA suits
@@ -24,7 +27,11 @@ function setup_dl_env_variables()
 function conda_install()
 {
   if ! [ -e $HOME/anaconda2/bin/conda ] ; then
-    bash pkg/Anaconda2-5.1.0-Linux-x86_64.sh -b
+    mkdir -p /tmp/pkg
+    cp pkg/$pkg_anaconda /tmp/pkg/.
+    chmod 777 /tmp/pkg/$pkg_anaconda
+    bash /tmp/pkg/$pkg_anaconda -b
+    rm -rf /tmp/pkg
   fi
 }
 
@@ -42,7 +49,11 @@ function setup_dl_env()
   conda_update_repo_mirror
   conda upgrade -y --all
   if ! pip list | grep tensorflow-gpu > /dev/null ; then
-    pip install pkg/tensorflow_gpu-1.6.0-cp27-none-linux_x86_64.whl
+    mkdir -p /tmp/pkg
+    cp pkg/$pkg_tensorflow /tmp/pkg/.
+    chmod 777 /tmp/pkg/$pkg_tensorflow
+    pip install /tmp/pkg/$pkg_tensorflow
+    rm -rf /tmp/pkg
   fi
   if ! pip list | grep tflearn > /dev/null ; then
     pip install tflearn
