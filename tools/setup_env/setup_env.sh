@@ -126,13 +126,17 @@ function check_install_cuda()
   echo
 
   echo "# $0 INFO: Install CUDA 9.0 patch 1."
-  bash pkg/cuda_9.0.176.1_linux.run --silent --installdir=/usr/local/cuda      \
-                                    --accept-eula > /dev/null
+  if ! grep 9.0.176.1 /usr/local/cuda/version.txt > /dev/null ; then
+    bash pkg/cuda_9.0.176.1_linux.run --silent --installdir=/usr/local/cuda    \
+                                      --accept-eula > /dev/null
+  fi
   echo
 
   echo "# $0 INFO: Install CUDA 9.0 patch 2."
-  bash pkg/cuda_9.0.176.2_linux.run --silent --installdir=/usr/local/cuda      \
-                                    --accept-eula > /dev/null
+  if ! grep 9.0.176.2 /usr/local/cuda/version.txt > /dev/null ; then
+    bash pkg/cuda_9.0.176.2_linux.run --silent --installdir=/usr/local/cuda    \
+                                      --accept-eula > /dev/null
+  fi
   echo
 }
 
