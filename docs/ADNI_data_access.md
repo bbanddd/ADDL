@@ -1,24 +1,23 @@
 # [ADNI Data Access](http://adni.loni.usc.edu/)
-**Registration**<br>
-1. Go to ADNI ["Access Data"](http://adni.loni.usc.edu/data-samples/access-data/) page. <br><br>
+**Registration Process**<br>
+1. Go to ADNI ["Access Data"](http://adni.loni.usc.edu/data-samples/access-data/) page.<br><br>
 ![Figure of Access ADNI](images/sc_adni_access1_en.png)<br><br>
-2. Click the ADNI Button for the registration process, fill your information, and submit.
-3. There is application review process about one week.
+1. Click the ADNI Button for the registration process, fill your information, and submit.
+1. There is application review process about one week.
 
 **Standardized MRI Data Sets**<br>
 1. Go to the ["Standardized MRI Data Sets"](http://adni.loni.usc.edu/methods/mri-analysis/adni-standardized-data/) page after access granted.<br><br>
 ![Figure of Standardized MRI Data](images/sc_adni_download1_en.png)<br><br>
-2. Following "How to Download" session to get image collection and study information.
-3. All the 1.5T image collections are used in the project.
-![Figure of ADNI Image Collection
-](images/sc_adni_download2_en.png)
+1. Following "How to Download" session to get image collection and study information.
+1. All the 1.5T image collections are used in the project.
+![Figure of ADNI Image Collection](images/sc_adni_download2_en.png)
 The Image collections list:
    1. `ADNI1:Annual 2 Yr 1.5T`
    1. `ADNI1:Complete 1Yr 1.5T`
    1. `ADNI1:Complete 2Yr 1.5T`
    1. `ADNI1:Complete 3Yr 1.5T`
    1. `ADNI1:Screening 1.5T`
-4. Two study information lists `ADNI 1.5Y MRI Standardized Lists` and `Key ADNI tables merged into one table` are used in the project.
+1. Two study information lists `ADNI 1.5Y MRI Standardized Lists` and `Key ADNI tables merged into one table` are used in the project.
 ![Figure of ADNI Study Info](images/sc_adni_download3_en.png)
 
 ----
