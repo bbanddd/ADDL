@@ -3,9 +3,9 @@
 pkg_fsl=fslinstaller.py
 pkg_fsl_archived=fsl-5.0.10-centos7_64.tar.gz
 pkg_itkr=ITKR_0.4.12_R_x86_64-pc-linux-gnu.tar.gz
-pkg_antsr=ANTsR_0.6_R_x86_64-pc-linux-gnu.tar.gz
+pkg_antsr=ANTsR_0.6.1_R_x86_64-pc-linux-gnu.tar.gz
 pkg_antsrcore=ANTsRCore_0.4.2.1_R_x86_64-pc-linux-gnu.tar.gz
-pkg_extrantsr=extrantsr_3.1.1_R_x86_64-pc-linux-gnu.tar.gz
+
 
 function rpm_pkg_check_yum_install()
 {
@@ -161,7 +161,7 @@ function check_install_dl_framework_suits()
   echo
 }
 
-function check_install_fsl_ansr_suits()
+function check_install_fsl_antsr_suits()
 {
 
   echo "Check and install FSL."
@@ -198,7 +198,7 @@ function check_install_fsl_ansr_suits()
 
   echo "Check and install extrantsr."
   if ! R CMD Rscript -e 'installed.packages()[,c(0)]' | grep extrantsr ; then
-    R CMD INSTALL pkg/$pkg_extrantsr > /dev/null
+    Rscript install_extrantsr.r
   fi
   echo
 }
@@ -214,7 +214,7 @@ function main()
   check_install_centos7_mini_pending_suits
   check_install_nvidia_suits
   check_install_dl_framework_suits
-  check_install_fsl_ansr_suits
+  check_install_fsl_antsr_suits
   post_config
 }
 
