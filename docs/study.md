@@ -158,7 +158,7 @@ This strategy has a common N in different study groups. Although not all study g
 * *FP* false positive
 * *FN* false negative
 * *TPR* true positive rate
-* *TRN* true negative rate (SPC)
+* *TRN* true negative rate
 * *FPR* false positive rate
 * *FNR* false negative rate
 * *ACC* accuracy
